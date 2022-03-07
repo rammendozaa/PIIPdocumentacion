@@ -1,7 +1,30 @@
 -- table that has all the possible status of an assignment
-DROP TABLE IF EXISTS DICT_ASSIGNMENT_STATUS;
+DROP TABLE IF EXISTS DICT_ACTIVITY_STATUS;
 
-CREATE TABLE DICT_ASSIGNMENT_STATUS (
+CREATE TABLE DICT_ACTIVITY_STATUS (
+    id int(11) unsigned NOT NULL AUTO_INCREMENT,
+    name varchar(255) DEFAULT NULL,
+    description varchar(255) DEFAULT NULL,
+    is_active tinyint(1) NOT NULL DEFAULT '1',
+    PRIMARY KEY(id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+-- table that has all the possible activities
+DROP TABLE IF EXISTS DICT_ACTIVITY_TYPE;
+
+CREATE TABLE DICT_ACTIVITY_TYPE (
+    id int(11) unsigned NOT NULL AUTO_INCREMENT,
+    name varchar(255) DEFAULT NULL,
+    description varchar(255) DEFAULT NULL,
+    is_active tinyint(1) NOT NULL DEFAULT '1',
+    PRIMARY KEY(id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- table that has all the possible interview types
+DROP TABLE IF EXISTS DICT_INTERVIEW_TYPE;
+
+CREATE TABLE DICT_INTERVIEW_TYPE (
     id int(11) unsigned NOT NULL AUTO_INCREMENT,
     name varchar(255) DEFAULT NULL,
     description varchar(255) DEFAULT NULL,
@@ -28,7 +51,6 @@ DROP TABLE IF EXISTS DICT_COMPANY;
 CREATE TABLE DICT_COMPANY (
     id int(11) unsigned NOT NULL AUTO_INCREMENT,
     name varchar(255) DEFAULT NULL,
-    description varchar(255) DEFAULT NULL,
     is_active tinyint(1) NOT NULL DEFAULT '1',
     PRIMARY KEY(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -40,19 +62,6 @@ DROP TABLE IF EXISTS DICT_DIFFICULTY;
 CREATE TABLE DICT_DIFFICULTY (
     id int(11) unsigned NOT NULL AUTO_INCREMENT,
     name varchar(255) DEFAULT NULL,
-    description varchar(255) DEFAULT NULL,
-    is_active tinyint(1) NOT NULL DEFAULT '1',
-    PRIMARY KEY(id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
--- table that has all the possible status of an interview
-DROP TABLE IF EXISTS DICT_INTERVIEW_STATUS;
-
-CREATE TABLE DICT_INTERVIEW_STATUS (
-    id int(11) unsigned NOT NULL AUTO_INCREMENT,
-    name varchar(255) DEFAULT NULL,
-    description varchar(255) DEFAULT NULL,
     is_active tinyint(1) NOT NULL DEFAULT '1',
     PRIMARY KEY(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -64,7 +73,6 @@ DROP TABLE IF EXISTS DICT_LANGUAGE;
 CREATE TABLE DICT_LANGUAGE (
     id int(11) unsigned NOT NULL AUTO_INCREMENT,
     name varchar(255) DEFAULT NULL,
-    description varchar(255) DEFAULT NULL,
     is_active tinyint(1) NOT NULL DEFAULT '1',
     PRIMARY KEY(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -100,11 +108,11 @@ DROP TABLE IF EXISTS USER;
 CREATE TABLE USER (
     id int(11) unsigned NOT NULL AUTO_INCREMENT,
     email varchar(255) DEFAULT NULL,
-    password varchar(128) NOT NULL,
+    password varchar(128) DEFAULT NULL,
     dob timestamp DEFAULT NULL,
     first_name varchar(255) DEFAULT NULL,
     last_name varchar(255) DEFAULT NULL,
-    school_id int(11) unsigned NOT NULL,
+    school_id int(11) unsigned DEFAULT NULL,
     is_active tinyint(1) NOT NULL DEFAULT '1',
     created_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY(id),
@@ -118,13 +126,30 @@ DROP TABLE IF EXISTS ADMINISTRATOR;
 CREATE TABLE ADMINISTRATOR (
     id int(11) unsigned NOT NULL AUTO_INCREMENT,
     email varchar(255) DEFAULT NULL,
-    password varchar(128) NOT NULL,
+    password varchar(128) DEFAULT NULL,
     dob timestamp DEFAULT NULL,
     first_name varchar(255) DEFAULT NULL,
     last_name varchar(255) DEFAULT NULL,
+    is_super tinyint(1) DEFAULT '0',
     is_active tinyint(1) NOT NULL DEFAULT '1',
     created_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY(id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+-- table that keeps track of user - mentor
+DROP TABLE IF EXISTS USER_ADMINISTRATOR;
+
+CREATE TABLE USER_ADMINISTRATOR (
+    id int(11) unsigned NOT NULL AUTO_INCREMENT,
+    user_id int(11) unsigned DEFAULT NULL,
+    administrator_id int(11) unsigned DEFAULT NULL,
+    is_graduate tinyint(1) NOT NULL DEFAULT '0',
+    created_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    is_active tinyint(1) NOT NULL DEFAULT '1',
+    PRIMARY KEY(id),
+    CONSTRAINT fk_usad_user_1 FOREIGN KEY (user_id) REFERENCES USER (id),
+    CONSTRAINT fk_usad_admi_1 FOREIGN KEY (administrator_id) REFERENCES ADMINISTRATOR (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -152,15 +177,16 @@ DROP TABLE IF EXISTS PROBLEM;
 
 CREATE TABLE PROBLEM (
     id int(11) unsigned NOT NULL AUTO_INCREMENT,
-    title text NOT NULL,
-    description text NOT NULL,
-    test_cases text NOT NULL,
-    category_id int(11) unsigned NOT NULL,
-    difficulty_id int(11) unsigned NOT NULL,
+    title text DEFAULT NULL,
+    description text DEFAULT NULL,
+    test_cases text DEFAULT NULL,
+    category_id int(11) unsigned DEFAULT NULL,
+    difficulty_id int(11) unsigned DEFAULT NULL,
+    is_active tinyint(1) NOT NULL DEFAULT '1',
     created_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    url text NOT NULL,
+    url text DEFAULT NULL,
     time_limit text DEFAULT NULL,
-    memory text DEFAULT NULL,
+    memory_limit text DEFAULT NULL,
     input text DEFAULT NULL,
     output text DEFAULT NULL,
     notes text DEFAULT NULL,
@@ -168,7 +194,7 @@ CREATE TABLE PROBLEM (
     solution text DEFAULT NULL,
     PRIMARY KEY(id), 
     CONSTRAINT fk_prob_dica_1 FOREIGN KEY (category_id) REFERENCES DICT_CATEGORY (id),
-    CONSTRAINT fk_prob_didi_1 FOREIGN KEY (difficulty_id) REFERENCES DICT_DIFFICULTY (id),
+    CONSTRAINT fk_prob_didi_1 FOREIGN KEY (difficulty_id) REFERENCES DICT_DIFFICULTY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- table that keeps track of all of the programming topics in the system 
@@ -176,14 +202,12 @@ DROP TABLE IF EXISTS PROGRAMMING_TOPIC;
 
 CREATE TABLE PROGRAMMING_TOPIC (
     id int(11) unsigned NOT NULL AUTO_INCREMENT,
-    title varchar(100) NOT NULL,
-    description text NOT NULL,
+    title varchar(100) DEFAULT NULL,
+    description text DEFAULT NULL,
     file_route text DEFAULT NULL,
     information text DEFAULT NULL,
-    uploaded_by int(11) unsigned NOT NULL,
     created_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY(id), 
-    CONSTRAINT fk_prto_admi_1 FOREIGN KEY (uploaded_by) REFERENCES ADMINISTRATOR (id)
+    PRIMARY KEY(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -192,46 +216,44 @@ DROP TABLE IF EXISTS SOFT_SKILL_TOPIC;
 
 CREATE TABLE SOFT_SKILL_TOPIC (
     id int(11) unsigned NOT NULL AUTO_INCREMENT,
-    title varchar(100) NOT NULL,
-    description text NOT NULL,
+    title varchar(100) DEFAULT NULL,
+    description text DEFAULT NULL,
     file_route text DEFAULT NULL,
     information text DEFAULT NULL,
-    uploaded_by int(11) unsigned NOT NULL,
     created_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY(id), 
-    CONSTRAINT fk_ssto_admi_1 FOREIGN KEY (uploaded_by) REFERENCES ADMINISTRATOR (id)
+    PRIMARY KEY(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 -- table that keeps track of the soft skills questions in the system
-DROP TABLE IF EXISTS BEHAVIORAL_QUESTION;
+DROP TABLE IF EXISTS SOFT_SKILL_QUESTION;
 
-CREATE TABLE BEHAVIORAL_QUESTION(
+CREATE TABLE SOFT_SKILL_QUESTION(
     id int(11) unsigned NOT NULL AUTO_INCREMENT,
-    title varchar(100) NOT NULL,
+    title varchar(100) DEFAULT NULL,
     question text DEFAULT NULL,
     file_route text DEFAULT NULL,
     information text DEFAULT NULL,
-    uploaded_by int(11) unsigned NOT NULL,
     created_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY(id),
-    CONSTRAINT fk_bequ_admi_1 FOREIGN KEY (uploaded_by) REFERENCES ADMINISTRATOR (id)
+    PRIMARY KEY(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
 -- table that keeps track of the progress of a behavioral question
-DROP TABLE IF EXISTS USER_BEHAVIORAL_QUESTION;
+DROP TABLE IF EXISTS USER_SOFT_SKILL_QUESTION;
 
-CREATE TABLE USER_BEHAVIORAL_QUESTION (
+CREATE TABLE USER_SOFT_SKILL_QUESTION (
     id int(11) unsigned NOT NULL AUTO_INCREMENT,
-    question_id int(11) unsigned NOT NULL,
-    user_id int(11) unsigned NOT NULL,
-    status_id int(11) unsigned NOT NULL,
+    question_id int(11) unsigned DEFAULT NULL,
+    user_id int(11) unsigned DEFAULT NULL,
+    status_id int(11) unsigned DEFAULT NULL,
     answer text DEFAULT NULL,
+    created_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    is_active tinyint(1) NOT NULL DEFAULT '1',
     PRIMARY KEY(id),
-    CONSTRAINT fk_ubqu_bequ_1 FOREIGN KEY (question_id) REFERENCES BEHAVIORAL_QUESTION (id),
+    CONSTRAINT fk_ubqu_bequ_1 FOREIGN KEY (question_id) REFERENCES SOFT_SKILL_QUESTION (id),
     CONSTRAINT fk_ubqu_user_1 FOREIGN KEY (user_id) REFERENCES USER (id),
-    CONSTRAINT fk_ubqu_dias_1 FOREIGN KEY (status_id) REFERENCES DICT_ASSIGNMENT_STATUS (id)
+    CONSTRAINT fk_ubqu_dias_1 FOREIGN KEY (status_id) REFERENCES DICT_ACTIVITY_STATUS (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -240,17 +262,51 @@ DROP TABLE IF EXISTS USER_PROBLEM;
 
 CREATE TABLE USER_PROBLEM (
     id int(11) unsigned NOT NULL AUTO_INCREMENT,
-    user_id int(11) unsigned NOT NULL,
-    problem_id int(11) unsigned NOT NULL,
-    status_id int(11) unsigned NOT NULL,
+    user_id int(11) unsigned DEFAULT NULL,
+    problem_id int(11) unsigned DEFAULT NULL,
+    status_id int(11) unsigned DEFAULT NULL,
     code text DEFAULT NULL,
-    language_id int(11) unsigned NOT NULL,
+    language_id int(11) unsigned DEFAULT NULL,
     is_active tinyint(1) NOT NULL DEFAULT '1',
     created_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY(id),
     CONSTRAINT fk_uspr_user_1 FOREIGN KEY (user_id) REFERENCES USER (id),
     CONSTRAINT fk_uspr_prob_1 FOREIGN KEY (problem_id) REFERENCES PROBLEM (id),
-    CONSTRAINT fk_uspr_dias_1 FOREIGN KEY (status_id) REFERENCES DICT_ASSIGNMENT_STATUS (id)
+    CONSTRAINT fk_uspr_dias_1 FOREIGN KEY (status_id) REFERENCES DICT_ACTIVITY_STATUS (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+-- table that has past and current status of a problem in relation to the user that is solving it
+DROP TABLE IF EXISTS USER_PROGRAMMING_TOPIC;
+
+CREATE TABLE USER_PROGRAMMING_TOPIC (
+    id int(11) unsigned NOT NULL AUTO_INCREMENT,
+    user_id int(11) unsigned DEFAULT NULL,
+    programming_topic_id int(11) unsigned DEFAULT NULL,
+    status_id int(11) unsigned DEFAULT NULL,
+    is_active tinyint(1) NOT NULL DEFAULT '1',
+    created_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY(id),
+    CONSTRAINT fk_uspt_user_1 FOREIGN KEY (user_id) REFERENCES USER (id),
+    CONSTRAINT fk_uspt_prto_1 FOREIGN KEY (programming_topic_id) REFERENCES PROGRAMMING_TOPIC (id),
+    CONSTRAINT fk_uspt_dias_1 FOREIGN KEY (status_id) REFERENCES DICT_ACTIVITY_STATUS (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+-- table that has past and current status of a problem in relation to the user that is solving it
+DROP TABLE IF EXISTS USER_SOFT_SKILL_TOPIC;
+
+CREATE TABLE USER_SOFT_SKILL_TOPIC (
+    id int(11) unsigned NOT NULL AUTO_INCREMENT,
+    user_id int(11) unsigned DEFAULT NULL,
+    soft_skill_topic_id int(11) unsigned DEFAULT NULL,
+    status_id int(11) unsigned DEFAULT NULL,
+    is_active tinyint(1) NOT NULL DEFAULT '1',
+    created_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY(id),
+    CONSTRAINT fk_usst_user_1 FOREIGN KEY (user_id) REFERENCES USER (id),
+    CONSTRAINT fk_usst_ssto_1 FOREIGN KEY (soft_skill_topic_id) REFERENCES SOFT_SKILL_TOPIC (id),
+    CONSTRAINT fk_usst_dias_1 FOREIGN KEY (status_id) REFERENCES DICT_ACTIVITY_STATUS (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -284,97 +340,63 @@ CREATE TABLE COMPANY_TRACKING_LINKS (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
--- table that keeps track of soft skill topics
-DROP TABLE IF EXISTS ADMINISTRATOR_BEHAVIORAL_QUESTION;
+-- table that keeps track of templates
+DROP TABLE IF EXISTS TEMPLATE;
 
-CREATE TABLE ADMINISTRATOR_BEHAVIORAL_QUESTION (
+CREATE TABLE TEMPLATE (
     id int(11) unsigned NOT NULL AUTO_INCREMENT,
-    question_id int(11) unsigned NOT NULL,
-    created_by int(11) unsigned NOT NULL,
-    created_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP, 
-    last_updated_by int(11) unsigned DEFAULT NULL,
-    last_update_date timestamp DEFAULT NULL,
-    PRIMARY KEY(id),
-    CONSTRAINT fk_adbq_bequ_1 FOREIGN KEY (question_id) REFERENCES BEHAVIORAL_QUESTION (id),
-    CONSTRAINT fk_adbq_admin_1 FOREIGN KEY (created_by) REFERENCES ADMINISTRATOR (id),
-    CONSTRAINT fk_adbq_admin_2 FOREIGN KEY (last_updated_by) REFERENCES ADMINISTRATOR (id)
+    name varchar(100) DEFAULT NULL,
+    description text DEFAULT NULL,
+    position int(11) unsigned DEFAULT NULL,
+    PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
--- table that keeps track of the problems updated and added by administrators
-DROP TABLE IF EXISTS ADMINISTRATOR_PROBLEM;
+-- table that keeps track of template activities
+DROP TABLE IF EXISTS TEMPLATE_ACTIVITY;
 
-CREATE TABLE ADMINISTRATOR_PROBLEM (
+CREATE TABLE TEMPLATE_ACTIVITY (
     id int(11) unsigned NOT NULL AUTO_INCREMENT,
-    problem_id int(11) unsigned NOT NULL,
-    created_by int(11) unsigned NOT NULL,
-    created_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP, 
-    last_updated_by int(11) unsigned DEFAULT NULL,
-    last_update_date timestamp DEFAULT NULL,
-    PRIMARY KEY(id),
-    CONSTRAINT fk_adpr_prob_1 FOREIGN KEY (problem_id) REFERENCES PROBLEM (id),
-    CONSTRAINT fk_adpr_admin_1 FOREIGN KEY (created_by) REFERENCES ADMINISTRATOR (id),
-    CONSTRAINT fk_adpr_admin_2 FOREIGN KEY (last_updated_by) REFERENCES ADMINISTRATOR (id)
+    name varchar(100) DEFAULT NULL,
+    description text DEFAULT NULL,
+    template_id int(11) unsigned DEFAULT NULL,
+    activity_type_id int(11) unsigned DEFAULT NULL,
+    position int(11) unsigned DEFAULT NULL,
+    external_reference int(11) unsigned DEFAULT NULL COMMENT "CAN MAP TO PROBLEM, TOPIC, ETC.",
+    PRIMARY KEY (id),
+    CONSTRAINT fk_teac_temp_1 FOREIGN KEY (template_id) REFERENCES TEMPLATE (id),
+    CONSTRAINT fk_teac_daty_1 FOREIGN KEY (activity_type_id) REFERENCES DICT_ACTIVITY_TYPE (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
--- table that keeps track of soft skill topics
-DROP TABLE IF EXISTS ADMINISTRATOR_PROGRAMMING_TOPIC;
+-- table that keeps track of a user template progress
+DROP TABLE IF EXISTS USER_TEMPLATE;
 
-CREATE TABLE ADMINISTRATOR_PROGRAMMING_TOPIC (
+CREATE TABLE USER_TEMPLATE (
     id int(11) unsigned NOT NULL AUTO_INCREMENT,
-    topic_id int(11) unsigned NOT NULL,
-    created_by int(11) unsigned NOT NULL,
-    created_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP, 
-    last_updated_by int(11) unsigned DEFAULT NULL,
-    last_update_date timestamp DEFAULT NULL,
-    PRIMARY KEY(id),
-    CONSTRAINT fk_adpt_prto_1 FOREIGN KEY (topic_id) REFERENCES PROGRAMMING_TOPIC (id),
-    CONSTRAINT fk_adpt_admin_1 FOREIGN KEY (created_by) REFERENCES ADMINISTRATOR (id),
-    CONSTRAINT fk_adpt_admin_2 FOREIGN KEY (last_updated_by) REFERENCES ADMINISTRATOR (id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
--- table that keeps track of soft skill topics
-DROP TABLE IF EXISTS ADMINISTRATOR_SOFT_SKILL_TOPIC;
-
-CREATE TABLE ADMINISTRATOR_SOFT_SKILL_TOPIC (
-    id int(11) unsigned NOT NULL AUTO_INCREMENT,
-    topic_id int(11) unsigned NOT NULL,
-    created_by int(11) unsigned NOT NULL,
-    created_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP, 
-    last_updated_by int(11) unsigned DEFAULT NULL,
-    last_update_date timestamp DEFAULT NULL,
-    PRIMARY KEY(id),
-    CONSTRAINT fk_asst_ssto_1 FOREIGN KEY (topic_id) REFERENCES SOFT_SKILL_TOPIC (id),
-    CONSTRAINT fk_asst_admin_1 FOREIGN KEY (created_by) REFERENCES ADMINISTRATOR (id),
-    CONSTRAINT fk_asst_admin_2 FOREIGN KEY (last_updated_by) REFERENCES ADMINISTRATOR (id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
--- table that keeps track of interview requests
-DROP TABLE IF EXISTS INTERVIEW_REQUESTS;
-
-CREATE TABLE INTERVIEW_REQUESTS (
-    id int(11) unsigned NOT NULL AUTO_INCREMENT,
-    interview_id int(11) unsigned NOT NULL,
-    language_id int(11) unsigned NOT NULL,
-    chosen_date timestamp NOT NULL,
-    PRIMARY KEY(id), 
-    CONSTRAINT fk_inre_inte_1 FOREIGN KEY (interview_id) REFERENCES INTERVIEW (id),
-    CONSTRAINT fk_inre_dila_1 FOREIGN KEY (language_id) REFERENCES DICT_LANGUAGE (id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
--- table that keeps track of the current status of an interview
-DROP TABLE IF EXISTS INTERVIEW_STATUS;
-
-CREATE TABLE INTERVIEW_STATUS (
-    id int(11) unsigned NOT NULL AUTO_INCREMENT,
-    interview_id int(11) unsigned NOT NULL,
-    status_id int(11) unsigned NOT NULL,
+    user_id int(11) unsigned DEFAULT NULL,
+    template_id int(11) unsigned DEFAULT NULL,
+    status_id int(11) unsigned DEFAULT NULL,
     created_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    PRIMARY KEY(id),
-    CONSTRAINT fk_inst_inte_1 FOREIGN KEY (interview_id) REFERENCES INTERVIEW (id),
-    CONSTRAINT fk_inst_dist_1 FOREIGN KEY (status_id) REFERENCES DICT_INTERVIEW_STATUS (id)
+    is_active tinyint(1) NOT NULL DEFAULT '1',
+    PRIMARY KEY (id),
+    CONSTRAINT fk_uste_user_1 FOREIGN KEY (user_id) REFERENCES USER (id),
+    CONSTRAINT fk_uste_temp_1 FOREIGN KEY (template_id) REFERENCES TEMPLATE (id),
+    CONSTRAINT fk_uste_dast_1 FOREIGN KEY (status_id) REFERENCES DICT_ACTIVITY_STATUS (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+-- table that keeps track of user template activities
+DROP TABLE IF EXISTS USER_TEMPLATE_ACTIVITY;
+
+CREATE TABLE USER_TEMPLATE_ACTIVITY (
+    id int(11) unsigned NOT NULL AUTO_INCREMENT,
+    template_activity_id int(11) unsigned DEFAULT NULL,
+    status_id int(11) unsigned DEFAULT NULL,
+    external_reference int(11) unsigned DEFAULT NULL COMMENT "CAN MAP TO USER_PROBLEM, USER_TOPIC, INTERVIEW, ETC.",
+    created_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    is_active tinyint(1) NOT NULL DEFAULT '1',
+    PRIMARY KEY (id),
+    CONSTRAINT fk_usta_uste_1 FOREIGN KEY (template_activity_id) REFERENCES TEMPLATE_ACTIVITY (id),
+    CONSTRAINT fk_usta_dast_1 FOREIGN KEY (status_id) REFERENCES DICT_ACTIVITY_STATUS (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
