@@ -266,6 +266,7 @@ CREATE TABLE USER_PROBLEM (
     problem_id int(11) unsigned DEFAULT NULL,
     status_id int(11) unsigned DEFAULT NULL,
     code text DEFAULT NULL,
+    submission_url text DEFAULT NULL,
     language_id int(11) unsigned DEFAULT NULL,
     is_active tinyint(1) NOT NULL DEFAULT '1',
     created_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
