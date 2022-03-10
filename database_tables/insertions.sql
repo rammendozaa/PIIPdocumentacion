@@ -1,10 +1,17 @@
 INSERT INTO DICT_ACTIVITY_STATUS (id, name, description)
 VALUES 
-(1, "Created", "Not started yet");
+(1, "Created", "Not started yet"),
+(2, "In progress", "Started"),
+(3, "Waiting", "Waiting for feedback"),
+(4, "Finished", "Finished");
 
 INSERT INTO DICT_ACTIVITY_TYPE (id, name, description)
 VALUES 
-(1, "Problem", "Programming problem");
+(1, "Problem", "Solve a problem"),
+(2, "ProgrammingTopic", "Read a specific topic"),
+(3, "SoftSkillQuestion", "Answer a soft skill question"),
+(4, "SoftSkillTopic", "Read a specific soft skill topic"),
+(5, "Interview", "Take an interview");
 
 INSERT INTO DICT_INTERVIEW_TYPE (id, name, description)
 VALUES 
@@ -17,23 +24,93 @@ VALUES
 
 INSERT INTO DICT_COMPANY (id, name)
 VALUES 
-(1, "Facebook");
+(1, "Facebook"),
+(2, "Microsoft"),
+(3, "Google"),
+(4, "Amazon"),
+(5, "Apple");
 
 INSERT INTO DICT_DIFFICULTY (id, name)
 VALUES 
-(1, "Very easy");
+(1, "Very easy"),
+(2, "Easy"),
+(3, "Medium"),
+(4, "Hard"),
+(5, "Very hard");
 
 INSERT INTO DICT_LANGUAGE (id, name)
 VALUES 
-(1, "C++");
+(1, "C++"),
+(2, "C"),
+(3, "Java"),
+(4, "Python"),
+(5, "Javascript");
 
-INSERT INTO DICT_SCHOOL (id, name, description)
+
+INSERT INTO DICT_SCHOOL (name, description)
 VALUES 
-(1, "ESCOM", "Escuela Superior de Computo");
+("CICS MILPA ALTA", "CICS MILPA ALTA"),
+("CICS UST", "CICS UST"),
+("ENCB", "ENCB"),
+("ENMH", "ENMH"),
+("ESCA SANTO TOMAS", "ESCA SANTO TOMAS"),
+("ESCA TEPEPAN", "ESCA TEPEPAN"),
+("ESCOM", "ESCOM"),
+("ESE", "ESE"),
+("ESEO", "ESEO"),
+("ESFM", "ESFM"),
+("ESIA TECAMACHALCO", "ESIA TECAMACHALCO"),
+("ESIA TICOMAN", "ESIA TICOMAN"),
+("ESIA-ZAC", "ESIA-ZAC"),
+("ESIME AZCAPOTZALCO", "ESIME AZCAPOTZALCO"),
+("ESIME CULHUACAN", "ESIME CULHUACAN"),
+("ESIME TICOMAN", "ESIME TICOMAN"),
+("ESIME ZACATENCO", "ESIME ZACATENCO"),
+("ESIQIE", "ESIQIE"),
+("ESIT", "ESIT"),
+("ESM", "ESM"),
+("EST", "EST"),
+("UPIBI", "UPIBI"),
+("UPIICSA", "UPIICSA"),
+("UPIIG", "UPIIG"),
+("UPIITA", "UPIITA"),
+("UPIIZ", "UPIIZ"),
+("ENBA", "ENBA"),
+("UPIIH", "UPIIH"),
+("UPIIP", "UPIIP"),
+("UPIIC", "UPIIC"),
+("UPIEM", "UPIEM"),
+("UPIIT", "UPIIT"),
+("CECyT 1", "CECyT 1"),
+("CECyT 2", "CECyT 2"),
+("CECyT 3", "CECyT 3"),
+("CECyT 4", "CECyT 4"),
+("CECyT 5", "CECyT 5"),
+("CECyT 6", "CECyT 6"),
+("CECyT 7", "CECyT 7"),
+("CECyT 8", "CECyT 8"),
+("CECyT 9", "CECyT 9"),
+("CECyT 10", "CECyT 10"),
+("CECyT 11", "CECyT 11"),
+("CECyT 12", "CECyT 12"),
+("CECyT 13", "CECyT 13"),
+("CECyT 14", "CECyT 14"),
+("CECyT 15", "CECyT 15"),
+("CECyT 16", "CECyT 16"),
+("CECyT 17", "CECyT 17"),
+("CECyT 18", "CECyT 18"),
+("CECyT 19", "CECyT 19"),
+("CET 1", "CET 1");
+
 
 INSERT INTO DICT_TRACKING_STATUS (id, name, description)
 VALUES 
-(1, "Not applied", "Have not applied to company");
+(1, "Not applied", "Have not applied to company"),
+(2, "Applied", "Has applied to company"),
+(3, "Coding Challenge", "Solving coding challenge"),
+(4, "Interviewing", "Going through interviews"),
+(5, "Accepted", "Recevied offer"),
+(6, "Rejected", "Not accepted");
 
 INSERT INTO USER (email, password, dob, first_name, last_name, school_id)
 VALUES 
