@@ -353,6 +353,20 @@ CREATE TABLE TEMPLATE (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
+-- table that keeps track of the sections in a template
+DROP TABLE IF EXISTS TEMPLATE_SECTION;
+
+CREATE TABLE TEMPLATE_SECTION (
+    id int(11) unsigned NOT NULL AUTO_INCREMENT,
+    name varchar(100) DEFAULT NULL,
+    description text DEFAULT NULL,
+    position int(11) unsigned DEFAULT NULL,
+    template_id int(11) unsigned DEFAULT NULL,
+    PRIMARY KEY (id),
+    CONSTRAINT fk_tese_temp_1 FOREIGN KEY (template_id) REFERENCES TEMPLATE (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
 -- table that keeps track of template activities
 DROP TABLE IF EXISTS TEMPLATE_ACTIVITY;
 
@@ -360,12 +374,12 @@ CREATE TABLE TEMPLATE_ACTIVITY (
     id int(11) unsigned NOT NULL AUTO_INCREMENT,
     name varchar(100) DEFAULT NULL,
     description text DEFAULT NULL,
-    template_id int(11) unsigned DEFAULT NULL,
+    template_section_id int(11) unsigned DEFAULT NULL,
     activity_type_id int(11) unsigned DEFAULT NULL,
     position int(11) unsigned DEFAULT NULL,
     external_reference int(11) unsigned DEFAULT NULL COMMENT "CAN MAP TO PROBLEM, TOPIC, ETC.",
     PRIMARY KEY (id),
-    CONSTRAINT fk_teac_temp_1 FOREIGN KEY (template_id) REFERENCES TEMPLATE (id),
+    CONSTRAINT fk_teac_tese_1 FOREIGN KEY (template_section_id) REFERENCES TEMPLATE_SECTION (id),
     CONSTRAINT fk_teac_daty_1 FOREIGN KEY (activity_type_id) REFERENCES DICT_ACTIVITY_TYPE (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -387,17 +401,35 @@ CREATE TABLE USER_TEMPLATE (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
+-- table that keeps track of a user template section progress
+DROP TABLE IF EXISTS USER_TEMPLATE_SECTION;
+
+CREATE TABLE USER_TEMPLATE_SECTION (
+    id int(11) unsigned NOT NULL AUTO_INCREMENT,
+    user_id int(11) unsigned DEFAULT NULL,
+    template_section_id int(11) unsigned DEFAULT NULL,
+    status_id int(11) unsigned DEFAULT NULL,
+    created_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    is_active tinyint(1) NOT NULL DEFAULT '1',
+    PRIMARY KEY (id),
+    CONSTRAINT fk_usts_user_1 FOREIGN KEY (user_id) REFERENCES USER (id),
+    CONSTRAINT fk_usts_tese_1 FOREIGN KEY (template_section_id) REFERENCES TEMPLATE_SECTION (id),
+    CONSTRAINT fk_usts_dast_1 FOREIGN KEY (status_id) REFERENCES DICT_ACTIVITY_STATUS (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 -- table that keeps track of user template activities
 DROP TABLE IF EXISTS USER_TEMPLATE_ACTIVITY;
 
 CREATE TABLE USER_TEMPLATE_ACTIVITY (
     id int(11) unsigned NOT NULL AUTO_INCREMENT,
+    user_id int(11) unsigned DEFAULT NULL,
     template_activity_id int(11) unsigned DEFAULT NULL,
     status_id int(11) unsigned DEFAULT NULL,
     external_reference int(11) unsigned DEFAULT NULL COMMENT "CAN MAP TO USER_PROBLEM, USER_TOPIC, INTERVIEW, ETC.",
     created_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     is_active tinyint(1) NOT NULL DEFAULT '1',
     PRIMARY KEY (id),
+    CONSTRAINT fk_usta_user_1 FOREIGN KEY (user_id) REFERENCES USER (id),
     CONSTRAINT fk_usta_uste_1 FOREIGN KEY (template_activity_id) REFERENCES TEMPLATE_ACTIVITY (id),
     CONSTRAINT fk_usta_dast_1 FOREIGN KEY (status_id) REFERENCES DICT_ACTIVITY_STATUS (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
