@@ -174,12 +174,20 @@ INSERT INTO TEMPLATE (id, name, description, position)
 VALUES 
 (1, "Introduction", "This is the first template that users will see", 1);
 
-INSERT INTO TEMPLATE_ACTIVITY (id, name, description, template_id, activity_type_id, position, external_reference)
+INSERT INTO TEMPLATE_SECTION (id, name, description, position, template_id)
+VALUES
+(1, "Section 1", "The first section here", 1, 1);
+
+INSERT INTO TEMPLATE_ACTIVITY (id, name, description, template_section_id, activity_type_id, position, external_reference)
 VALUES 
 (1, "Questionaire", "Solve this questionare so that we can assign you in the perfect step of this path", 1, 1, 1, 1);
 
 INSERT INTO USER_TEMPLATE (user_id, template_id, status_id)
 VALUES 
+(1, 1, 1);
+
+INSERT INTO USER_TEMPLATE_SECTION (user_id, template_section_id, status_id)
+VALUES
 (1, 1, 1);
 
 INSERT INTO USER_TEMPLATE_ACTIVITY (template_activity_id, status_id, external_reference)
