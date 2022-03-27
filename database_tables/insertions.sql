@@ -11,7 +11,8 @@ VALUES
 (2, "ProgrammingTopic", "Read a specific topic"),
 (3, "SoftSkillQuestion", "Answer a soft skill question"),
 (4, "SoftSkillTopic", "Read a specific soft skill topic"),
-(5, "Interview", "Take an interview");
+(5, "Interview", "Take an interview"),
+(6, "Questionnaire", "First questionnaire");
 
 INSERT INTO DICT_INTERVIEW_TYPE (id, name, description)
 VALUES 
@@ -193,3 +194,11 @@ VALUES
 INSERT INTO USER_TEMPLATE_ACTIVITY (template_activity_id, status_id, external_reference)
 VALUES 
 (1, 1, 1);
+
+INSERT INTO QUESTIONNAIRE (title, total_questions)
+VALUES
+("This is a questionnaire", 10);
+
+INSERT INTO USER_QUESTIONNAIRE (user_id, questionnaire_id, correct_answers, percentage_score, status_id)
+VALUES
+(1, 1, 5, 50.00, 4);

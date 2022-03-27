@@ -165,6 +165,7 @@ CREATE TABLE INTERVIEW (
     interview_url text DEFAULT NULL,
     interview_code text DEFAULT NULL,
     feedback text DEFAULT NULL,
+    is_active tinyint(1) NOT NULL DEFAULT '1',
     PRIMARY KEY(id),
     CONSTRAINT fk_inte_user_1 FOREIGN KEY (user_id) REFERENCES USER (id),
     CONSTRAINT fk_inte_admi_1 FOREIGN KEY (administrator_id) REFERENCES ADMINISTRATOR (id),
@@ -207,6 +208,7 @@ CREATE TABLE PROGRAMMING_TOPIC (
     file_route text DEFAULT NULL,
     information text DEFAULT NULL,
     created_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    is_active tinyint(1) NOT NULL DEFAULT '1',
     PRIMARY KEY(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -221,6 +223,7 @@ CREATE TABLE SOFT_SKILL_TOPIC (
     file_route text DEFAULT NULL,
     information text DEFAULT NULL,
     created_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    is_active tinyint(1) NOT NULL DEFAULT '1',
     PRIMARY KEY(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -235,7 +238,24 @@ CREATE TABLE SOFT_SKILL_QUESTION(
     file_route text DEFAULT NULL,
     information text DEFAULT NULL,
     created_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    is_active tinyint(1) NOT NULL DEFAULT '1',
     PRIMARY KEY(id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+-- table that keeps track of the questionnaires uploaded
+DROP TABLE IF EXISTS QUESTIONNAIRE;
+
+CREATE TABLE QUESTIONNAIRE (
+    id int(11) unsigned NOT NULL AUTO_INCREMENT,
+    title varchar(100) DEFAULT NULL,
+    questions text DEFAULT NULL,
+    questions_route text DEFAULT NULL,
+    total_questions int(11) DEFAULT NULL,
+    answers text DEFAULT NULL,
+    created_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    is_active tinyint(1) NOT NULL DEFAULT '1',
+    PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -311,6 +331,26 @@ CREATE TABLE USER_SOFT_SKILL_TOPIC (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
+-- table that keeps track of the starting questionnaire
+DROP TABLE IF EXISTS USER_QUESTIONNAIRE;
+
+CREATE TABLE USER_QUESTIONNAIRE (
+    id int(11) unsigned NOT NULL AUTO_INCREMENT,
+    user_id int(11) unsigned DEFAULT NULL,
+    questionnaire_id int(11) unsigned DEFAULT NULL,
+    correct_answers int(11) unsigned DEFAULT NULL,
+    percentage_score decimal(5, 2) DEFAULT NULL,
+    answers text DEFAULT NULL,
+    is_active tinyint(1) NOT NULL DEFAULT '1',
+    status_id int(11) unsigned DEFAULT NULL,
+    created_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    PRIMARY KEY(id),
+    CONSTRAINT fk_usqu_user_1 FOREIGN KEY (user_id) REFERENCES USER (id),
+    CONSTRAINT fk_usqu_ques_1 FOREIGN KEY (questionnaire_id) REFERENCES QUESTIONNAIRE (id),
+    CONSTRAINT fk_usqu_dias_1 FOREIGN KEY (status_id) REFERENCES DICT_ACTIVITY_STATUS (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
 -- table that keeps track of company applications for users
 DROP TABLE IF EXISTS COMPANY_TRACKING;
 
@@ -321,6 +361,7 @@ CREATE TABLE COMPANY_TRACKING (
     status_id int(11) unsigned NOT NULL,
     application_url varchar(255) DEFAULT NULL,
     interview_date timestamp DEFAULT NULL,
+    is_active tinyint(1) NOT NULL DEFAULT '1',
     PRIMARY KEY(id),
     CONSTRAINT fk_cotr_user_1 FOREIGN KEY (user_id) REFERENCES USER (id),
     CONSTRAINT fk_cotr_dico_1 FOREIGN KEY (company_id) REFERENCES DICT_COMPANY (id),
@@ -336,6 +377,7 @@ CREATE TABLE COMPANY_TRACKING_LINKS (
     company_tracking_id int(11) unsigned NOT NULL,
     description varchar(255) NOT NULL,
     url varchar(1000) NOT NULL,
+    is_active tinyint(1) NOT NULL DEFAULT '1',
     PRIMARY KEY(id),
     CONSTRAINT fk_cotl_cotr_1 FOREIGN KEY (company_tracking_id) REFERENCES COMPANY_TRACKING (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -349,6 +391,7 @@ CREATE TABLE TEMPLATE (
     name varchar(100) DEFAULT NULL,
     description text DEFAULT NULL,
     position int(11) unsigned DEFAULT NULL,
+    is_active tinyint(1) NOT NULL DEFAULT '1',
     PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -362,6 +405,7 @@ CREATE TABLE TEMPLATE_SECTION (
     description text DEFAULT NULL,
     position int(11) unsigned DEFAULT NULL,
     template_id int(11) unsigned DEFAULT NULL,
+    is_active tinyint(1) NOT NULL DEFAULT '1',
     PRIMARY KEY (id),
     CONSTRAINT fk_tese_temp_1 FOREIGN KEY (template_id) REFERENCES TEMPLATE (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -378,6 +422,7 @@ CREATE TABLE TEMPLATE_ACTIVITY (
     activity_type_id int(11) unsigned DEFAULT NULL,
     position int(11) unsigned DEFAULT NULL,
     external_reference int(11) unsigned DEFAULT NULL COMMENT "CAN MAP TO PROBLEM, TOPIC, ETC.",
+    is_active tinyint(1) NOT NULL DEFAULT '1',
     PRIMARY KEY (id),
     CONSTRAINT fk_teac_tese_1 FOREIGN KEY (template_section_id) REFERENCES TEMPLATE_SECTION (id),
     CONSTRAINT fk_teac_daty_1 FOREIGN KEY (activity_type_id) REFERENCES DICT_ACTIVITY_TYPE (id)
