@@ -183,17 +183,17 @@ INSERT INTO TEMPLATE_ACTIVITY (id, name, description, template_section_id, activ
 VALUES 
 (1, "Questionaire", "Solve this questionare so that we can assign you in the perfect step of this path", 1, 1, 1, 1);
 
-INSERT INTO USER_TEMPLATE (user_id, template_id, status_id)
+INSERT INTO USER_TEMPLATE (user_id, template_id, status_id, position)
 VALUES 
-(1, 1, 1);
+(1, 1, 1, 1);
 
-INSERT INTO USER_TEMPLATE_SECTION (user_id, template_section_id, status_id)
+INSERT INTO USER_TEMPLATE_SECTION (user_id, template_section_id, status_id, position)
 VALUES
-(1, 1, 1);
+(1, 1, 1, 1);
 
-INSERT INTO USER_TEMPLATE_ACTIVITY (template_activity_id, status_id, external_reference)
+INSERT INTO USER_TEMPLATE_ACTIVITY (template_activity_id, status_id, position, external_reference)
 VALUES 
-(1, 1, 1);
+(1, 1, 1, 1);
 
 INSERT INTO QUESTIONNAIRE (title, total_questions)
 VALUES
