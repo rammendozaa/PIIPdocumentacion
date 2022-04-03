@@ -454,6 +454,7 @@ CREATE TABLE USER_TEMPLATE_SECTION (
     id int(11) unsigned NOT NULL AUTO_INCREMENT,
     user_id int(11) unsigned DEFAULT NULL,
     template_section_id int(11) unsigned DEFAULT NULL,
+    user_template_id int(11) unsigned DEFAULT NULL,
     status_id int(11) unsigned DEFAULT '1',
     position int(11) unsigned DEFAULT NULL,
     created_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -461,6 +462,7 @@ CREATE TABLE USER_TEMPLATE_SECTION (
     PRIMARY KEY (id),
     CONSTRAINT fk_usts_user_1 FOREIGN KEY (user_id) REFERENCES USER (id),
     CONSTRAINT fk_usts_tese_1 FOREIGN KEY (template_section_id) REFERENCES TEMPLATE_SECTION (id),
+    CONSTRAINT fk_usts_uste_1 FOREIGN KEY (user_template_id) REFERENCES USER_TEMPLATE (id),
     CONSTRAINT fk_usts_dast_1 FOREIGN KEY (status_id) REFERENCES DICT_ACTIVITY_STATUS (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -471,6 +473,7 @@ CREATE TABLE USER_TEMPLATE_ACTIVITY (
     id int(11) unsigned NOT NULL AUTO_INCREMENT,
     user_id int(11) unsigned DEFAULT NULL,
     template_activity_id int(11) unsigned DEFAULT NULL,
+    user_template_section_id int(11) unsigned DEFAULT NULL,
     status_id int(11) unsigned DEFAULT '1',
     external_reference int(11) unsigned DEFAULT NULL COMMENT "CAN MAP TO USER_PROBLEM, USER_TOPIC, INTERVIEW, ETC.",
     position int(11) unsigned DEFAULT NULL,
@@ -479,5 +482,6 @@ CREATE TABLE USER_TEMPLATE_ACTIVITY (
     PRIMARY KEY (id),
     CONSTRAINT fk_usta_user_1 FOREIGN KEY (user_id) REFERENCES USER (id),
     CONSTRAINT fk_usta_uste_1 FOREIGN KEY (template_activity_id) REFERENCES TEMPLATE_ACTIVITY (id),
+    CONSTRAINT fk_usta_usts_1 FOREIGN KEY (user_template_section_id) REFERENCES USER_TEMPLATE_SECTION (id),
     CONSTRAINT fk_usta_dast_1 FOREIGN KEY (status_id) REFERENCES DICT_ACTIVITY_STATUS (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;

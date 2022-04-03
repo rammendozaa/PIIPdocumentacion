@@ -187,13 +187,13 @@ INSERT INTO USER_TEMPLATE (user_id, template_id, status_id, position)
 VALUES 
 (1, 1, 1, 1);
 
-INSERT INTO USER_TEMPLATE_SECTION (user_id, template_section_id, status_id, position)
+INSERT INTO USER_TEMPLATE_SECTION (user_id, template_section_id, user_template_id, status_id, position)
 VALUES
-(1, 1, 1, 1);
+(1, 1, 1, 1, 1);
 
-INSERT INTO USER_TEMPLATE_ACTIVITY (template_activity_id, status_id, position, external_reference)
+INSERT INTO USER_TEMPLATE_ACTIVITY (template_activity_id, user_template_section_id, status_id, position, external_reference)
 VALUES 
-(1, 1, 1, 1);
+(1, 1, 1, 1, 1);
 
 INSERT INTO QUESTIONNAIRE (title, total_questions)
 VALUES
