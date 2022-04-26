@@ -249,13 +249,28 @@ DROP TABLE IF EXISTS QUESTIONNAIRE;
 CREATE TABLE QUESTIONNAIRE (
     id int(11) unsigned NOT NULL AUTO_INCREMENT,
     title varchar(100) DEFAULT NULL,
-    questions text DEFAULT NULL,
-    questions_route text DEFAULT NULL,
+    description text DEFAULT NULL,
     total_questions int(11) DEFAULT NULL,
-    answers text DEFAULT NULL,
     created_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     is_active tinyint(1) NOT NULL DEFAULT '1',
     PRIMARY KEY (id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
+DROP TABLE IF EXISTS QUESTIONNAIRE_QUESTION;
+
+CREATE TABLE QUESTIONNAIRE_QUESTION(
+    id int(11) unsigned NOT NULL AUTO_INCREMENT,
+    questionnaire_id int(11) unsigned DEFAULT NULL,
+    question text DEFAULT NULL,
+    answer text DEFAULT NULL,
+    option_1 text DEFAULT NULL,
+    option_2 text DEFAULT NULL,
+    option_3 text DEFAULT NULL,
+    created_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
+    is_active tinyint(1) NOT NULL DEFAULT '1',
+    PRIMARY KEY (id),
+    CONSTRAINT fk_ququ_ques_1 FOREIGN KEY (questionnaire_id) REFERENCES QUESTIONNAIRE (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
