@@ -1,0 +1,108 @@
+POST /questionnaire
+{
+    "title": "first questionnaire",
+    "description": "this is the first",
+    "questions": [
+        {
+            "questionText": "Question 1",
+            "answerOptions": [
+                {
+                    "answerText": "this is answer",
+                    "isCorrect": false
+                },{
+                    "answerText": "this is answer",
+                    "isCorrect": true
+                },{
+                    "answerText": "this is answer",
+                    "isCorrect": false
+                },{
+                    "answerText": "this is answer",
+                    "isCorrect": false
+                }
+            ]
+        },
+        {
+            "questionText": "Question2 ",
+            "answerOptions": [
+                {
+                    "answerText": "this is answer",
+                    "isCorrect": false
+                },{
+                    "answerText": "this is answer",
+                    "isCorrect": true
+                },{
+                    "answerText": "this is answer",
+                    "isCorrect": false
+                },{
+                    "answerText": "this is answer",
+                    "isCorrect": false
+                }
+            ]
+        },
+        {
+            "questionText": "Question 3",
+            "answerOptions": [
+                {
+                    "answerText": "this is answer",
+                    "isCorrect": false
+                },{
+                    "answerText": "this is answer",
+                    "isCorrect": true
+                },{
+                    "answerText": "this is answer",
+                    "isCorrect": false
+                },{
+                    "answerText": "this is answer",
+                    "isCorrect": false
+                }
+            ]
+        },
+        {
+            "questionText": "Question  4",
+            "answerOptions": [
+                {
+                    "answerText": "this is answer",
+                    "isCorrect": false
+                },{
+                    "answerText": "this is answer",
+                    "isCorrect": true
+                },{
+                    "answerText": "this is answer",
+                    "isCorrect": false
+                },{
+                    "answerText": "this is answer",
+                    "isCorrect": false
+                }
+            ]
+        }
+    ]
+}
+
+POST /template/add
+{
+    "name": "aaaaaaaaaaaaaaaaaa",
+    "description": "taaaaaaaaaaaaaaaaaaate",
+    "sections": [
+        {
+            "name": "aaaaaaaaaaaaaaaaaa 1",
+            "description": "this aaaaaaaaaaaaaaaaaa ction",
+            "position": 1,
+            "activities": [
+                {
+                    "name": "aaaaaaaaaaaaaaaaaa 1",
+                    "description": "aaaaaaaaaaaaaaaaaa 1 - 1",
+                    "activityType": 1,
+                    "position": 1,
+                    "externalReference": 2 
+                },
+                {
+                    "name": "aaaaaaaaaaaaaaaaaa 2 section 1",
+                    "description": "aaaaaaaaaaaaaaaaaa 1 - 2",
+                    "activityType": 2,
+                    "position": 2,
+                    "externalReference": 2 
+                }
+            ]
+        }
+    ]
+}
