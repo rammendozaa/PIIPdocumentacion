@@ -2,7 +2,7 @@ INSERT INTO DICT_ACTIVITY_STATUS (id, name, description)
 VALUES 
 (1, "Created", "Not started yet"),
 (2, "In progress", "Started"),
-(3, "Waiting", "Waiting for feedback"),
+(3, "Pending", "Waiting for feedback"),
 (4, "Finished", "Finished");
 
 INSERT INTO DICT_ACTIVITY_TYPE (id, name, description)
