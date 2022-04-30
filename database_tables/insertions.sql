@@ -201,9 +201,9 @@ VALUES
 
 INSERT INTO QUESTIONNAIRE_QUESTION (questionnaire_id, question, answer, option_1, option_2, option_3)
 VALUES
-(7, "question 1?", "yes", "no", "maybe", "what is the question?");
-(7, "question 2?", "yes", "no", "maybe", "what is the question?");
-(7, "question 3?", "yes", "no", "maybe", "what is the question?");
+(7, "question 1?", "yes", "no", "maybe", "what is the question?"),
+(7, "question 2?", "yes", "no", "maybe", "what is the question?"),
+(7, "question 3?", "yes", "no", "maybe", "what is the question?"),
 (7, "question 4?", "yes", "no", "maybe", "what is the question?");
 
 INSERT INTO USER_QUESTIONNAIRE (user_id, questionnaire_id, correct_answers, percentage_score, status_id)
