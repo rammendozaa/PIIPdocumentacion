@@ -193,9 +193,9 @@ INSERT INTO USER_TEMPLATE_SECTION (user_id, template_section_id, user_template_i
 VALUES
 (1, 1, 1, 1, 1);
 
-INSERT INTO USER_TEMPLATE_ACTIVITY (template_activity_id, user_template_section_id, status_id, position, external_reference)
+INSERT INTO USER_TEMPLATE_ACTIVITY (user_id, template_activity_id, user_template_section_id, status_id, position, external_reference)
 VALUES 
-(1, 1, 1, 1, 1);
+(1, 1, 1, 1, 1, 1);
 
 INSERT INTO QUESTIONNAIRE (id, title, description, total_questions)
 VALUES
