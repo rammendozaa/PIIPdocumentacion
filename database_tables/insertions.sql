@@ -195,13 +195,16 @@ INSERT INTO USER_TEMPLATE_ACTIVITY (template_activity_id, user_template_section_
 VALUES 
 (1, 1, 1, 1, 1);
 
-INSERT INTO QUESTIONNAIRE (title, description, total_questions)
+INSERT INTO QUESTIONNAIRE (id, title, description, total_questions)
 VALUES
-("This is a questionnaire", "this is a description", 10);
+(7, "This is a questionnaire", "this is a description", 10);
 
 INSERT INTO QUESTIONNAIRE_QUESTION (questionnaire_id, question, answer, option_1, option_2, option_3)
 VALUES
-(1, "is this a question?", "yes", "no", "maybe", "what is the question?")
+(7, "question 1?", "yes", "no", "maybe", "what is the question?");
+(7, "question 2?", "yes", "no", "maybe", "what is the question?");
+(7, "question 3?", "yes", "no", "maybe", "what is the question?");
+(7, "question 4?", "yes", "no", "maybe", "what is the question?");
 
 INSERT INTO USER_QUESTIONNAIRE (user_id, questionnaire_id, correct_answers, percentage_score, status_id)
 VALUES
