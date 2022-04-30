@@ -173,7 +173,9 @@ VALUES
 
 INSERT INTO TEMPLATE (id, name, description, position)
 VALUES 
-(1, "Introduction", "This is the first template that users will see", 1);
+(1, "Introduction", "This is the first template that users will see", 1),
+(2, "Medium", "This is the first template that users will see", 1),
+(3, "Advanced", "This is the first template that users will see", 1);
 
 INSERT INTO TEMPLATE_SECTION (id, name, description, position, template_id)
 VALUES
