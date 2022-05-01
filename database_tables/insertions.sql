@@ -143,9 +143,9 @@ INSERT INTO SOFT_SKILL_TOPIC (title, description)
 VALUES 
 ("STAR Method", "By following the STAR Method you can structure a story by highlighting the most important events");
 
-INSERT INTO SOFT_SKILL_QUESTION (id, title, question)
+INSERT INTO SOFT_SKILL_QUESTION (id, title, question, soft_skill_topic_id)
 VALUES 
-(1, "Start Method Q1", "Tell me a story of a time when you took ownership");
+(1, "Start Method Q1", "Tell me a story of a time when you took ownership", 1);
 
 INSERT INTO USER_SOFT_SKILL_QUESTION (question_id, user_id, status_id, answer)
 VALUES 

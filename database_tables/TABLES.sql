@@ -162,6 +162,7 @@ CREATE TABLE INTERVIEW (
     administrator_id int(11) unsigned DEFAULT NULL,
     language_id int(11) unsigned DEFAULT NULL,
     chosen_date timestamp DEFAULT NULL,
+    interview_type_id int(11) unsigned DEFAULT '1',
     interview_url text DEFAULT NULL,
     interview_code text DEFAULT NULL,
     feedback text DEFAULT NULL,
@@ -205,8 +206,7 @@ CREATE TABLE PROGRAMMING_TOPIC (
     id int(11) unsigned NOT NULL AUTO_INCREMENT,
     title varchar(100) DEFAULT NULL,
     description text DEFAULT NULL,
-    file_route text DEFAULT NULL,
-    information text DEFAULT NULL,
+    topic_information text DEFAULT NULL,
     created_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     is_active tinyint(1) NOT NULL DEFAULT '1',
     PRIMARY KEY(id)
@@ -220,8 +220,7 @@ CREATE TABLE SOFT_SKILL_TOPIC (
     id int(11) unsigned NOT NULL AUTO_INCREMENT,
     title varchar(100) DEFAULT NULL,
     description text DEFAULT NULL,
-    file_route text DEFAULT NULL,
-    information text DEFAULT NULL,
+    topic_information text DEFAULT NULL,
     created_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     is_active tinyint(1) NOT NULL DEFAULT '1',
     PRIMARY KEY(id)
@@ -235,11 +234,11 @@ CREATE TABLE SOFT_SKILL_QUESTION(
     id int(11) unsigned NOT NULL AUTO_INCREMENT,
     title varchar(100) DEFAULT NULL,
     question text DEFAULT NULL,
-    file_route text DEFAULT NULL,
-    information text DEFAULT NULL,
+    soft_skill_topic_id int(11) unsigned DEFAULT NULL,
     created_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     is_active tinyint(1) NOT NULL DEFAULT '1',
-    PRIMARY KEY(id)
+    PRIMARY KEY(id),
+    CONSTRAINT fk_ssqu_ssto_1 FOREIGN KEY (soft_skill_topic_id) REFERENCES SOFT_SKILL_TOPIC (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
