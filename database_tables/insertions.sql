@@ -199,8 +199,8 @@ VALUES
 
 INSERT INTO QUESTIONNAIRE (id, title, description, total_questions)
 VALUES
-(1, "This is a questionnaire", "this is a description", 3),
-(7, "This is a questionnaire", "this is a description", 3);
+(1, "This is a questionnaire", "this is a description", 4),
+(7, "This is a questionnaire", "this is a description", 4);
 
 INSERT INTO QUESTIONNAIRE_QUESTION (questionnaire_id, question, answer, option_1, option_2, option_3)
 VALUES
