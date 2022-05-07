@@ -182,7 +182,7 @@ CREATE TABLE PROBLEM (
     title text DEFAULT NULL,
     description text DEFAULT NULL,
     test_cases text DEFAULT NULL,
-    category_id int(11) unsigned DEFAULT NULL,
+    tags text DEFAULT NULL,
     difficulty_id int(11) unsigned DEFAULT NULL,
     is_active tinyint(1) NOT NULL DEFAULT '1',
     created_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
@@ -195,7 +195,6 @@ CREATE TABLE PROBLEM (
     source text DEFAULT NULL,
     solution text DEFAULT NULL,
     PRIMARY KEY(id), 
-    CONSTRAINT fk_prob_dica_1 FOREIGN KEY (category_id) REFERENCES DICT_CATEGORY (id),
     CONSTRAINT fk_prob_didi_1 FOREIGN KEY (difficulty_id) REFERENCES DICT_DIFFICULTY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
