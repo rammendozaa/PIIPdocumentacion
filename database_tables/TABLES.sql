@@ -166,11 +166,15 @@ CREATE TABLE INTERVIEW (
     interview_url text DEFAULT NULL,
     interview_code text DEFAULT NULL,
     feedback text DEFAULT NULL,
+    is_confirmed tinyint(1) NOT NULL DEFAULT '0',
+    comment text DEFAULT NULL,
     is_active tinyint(1) NOT NULL DEFAULT '1',
+    created_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY(id),
     CONSTRAINT fk_inte_user_1 FOREIGN KEY (user_id) REFERENCES USER (id),
     CONSTRAINT fk_inte_admi_1 FOREIGN KEY (administrator_id) REFERENCES ADMINISTRATOR (id),
-    CONSTRAINT fk_inte_dila_1 FOREIGN KEY (language_id) REFERENCES DICT_LANGUAGE (id)
+    CONSTRAINT fk_inte_dila_1 FOREIGN KEY (language_id) REFERENCES DICT_LANGUAGE (id),
+    CONSTRAINT fk_inte_diit_1 FOREIGN KEY (interview_type_id) REFERENCES DICT_INTERVIEW_TYPE (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
