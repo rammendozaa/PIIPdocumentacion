@@ -120,7 +120,9 @@ VALUES
 INSERT INTO ADMINISTRATOR (email, password, dob, first_name, last_name, is_super)
 VALUES 
 ("rammendozaa@yahoo.com", "password", "1998-07-02", "Alvaro", "Mendoza Ramirez", 1),
-("hugomichelbl@gmail.com", "password", "1998-07-02", "Hugo Michel", "Barbosa Lopez", 1);
+("hugomichelbl@gmail.com", "password", "1998-07-02", "Hugo Michel", "Barbosa Lopez", 1),
+("no-super-alvaro@yahoo.com", "password", "1998-07-02", "Alvaro", "Mendoza Ramirez", 0),
+("no-super-hugo@gmail.com", "password", "1998-07-02", "Hugo Michel", "Barbosa Lopez", 0);
 
 
 INSERT INTO USER_ADMINISTRATOR (user_id, administrator_id)
