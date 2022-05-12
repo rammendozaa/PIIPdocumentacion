@@ -385,6 +385,7 @@ CREATE TABLE COMPANY_TRACKING (
     application_url varchar(255) DEFAULT NULL,
     interview_date timestamp DEFAULT NULL,
     is_active tinyint(1) NOT NULL DEFAULT '1',
+    created_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY(id),
     CONSTRAINT fk_cotr_user_1 FOREIGN KEY (user_id) REFERENCES USER (id),
     CONSTRAINT fk_cotr_dico_1 FOREIGN KEY (company_id) REFERENCES DICT_COMPANY (id),
