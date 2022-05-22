@@ -200,7 +200,9 @@ CREATE TABLE PROGRAMMING_TOPIC (
     topic_information text DEFAULT NULL,
     created_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     is_active tinyint(1) NOT NULL DEFAULT '1',
-    PRIMARY KEY(id)
+    created_by int(11) unsigned,
+    PRIMARY KEY(id),
+    CONSTRAINT fk_prto_admi_1 FOREIGN KEY (created_by) REFERENCES ADMINISTRATOR (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -214,7 +216,9 @@ CREATE TABLE SOFT_SKILL_TOPIC (
     topic_information text DEFAULT NULL,
     created_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     is_active tinyint(1) NOT NULL DEFAULT '1',
-    PRIMARY KEY(id)
+    created_by int(11) unsigned,
+    PRIMARY KEY(id),
+    CONSTRAINT fk_ssto_admi_1 FOREIGN KEY (created_by) REFERENCES ADMINISTRATOR (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -227,7 +231,9 @@ CREATE TABLE SOFT_SKILL_QUESTION(
     question text DEFAULT NULL,
     created_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     is_active tinyint(1) NOT NULL DEFAULT '1',
-    PRIMARY KEY(id)
+    created_by int(11) unsigned,
+    PRIMARY KEY(id),
+    CONSTRAINT fk_ssqu_admi_1 FOREIGN KEY (created_by) REFERENCES ADMINISTRATOR (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -241,7 +247,9 @@ CREATE TABLE QUESTIONNAIRE (
     total_questions int(11) DEFAULT NULL,
     created_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     is_active tinyint(1) NOT NULL DEFAULT '1',
-    PRIMARY KEY (id)
+    created_by int(11) unsigned,
+    PRIMARY KEY (id),
+    CONSTRAINT fk_ques_admi_1 FOREIGN KEY (created_by) REFERENCES ADMINISTRATOR (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
