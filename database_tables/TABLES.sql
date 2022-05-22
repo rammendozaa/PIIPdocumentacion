@@ -33,18 +33,6 @@ CREATE TABLE DICT_INTERVIEW_TYPE (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
--- table that has all of the categories of an assignment
-DROP TABLE IF EXISTS DICT_CATEGORY;
-
-CREATE TABLE DICT_CATEGORY (
-    id int(11) unsigned NOT NULL AUTO_INCREMENT,
-    name varchar(255) DEFAULT NULL,
-    description varchar(255) DEFAULT NULL,
-    is_active tinyint(1) NOT NULL DEFAULT '1',
-    PRIMARY KEY(id)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
-
 -- table that has all the companies
 DROP TABLE IF EXISTS DICT_COMPANY;
 
@@ -237,11 +225,9 @@ CREATE TABLE SOFT_SKILL_QUESTION(
     id int(11) unsigned NOT NULL AUTO_INCREMENT,
     title varchar(100) DEFAULT NULL,
     question text DEFAULT NULL,
-    soft_skill_topic_id int(11) unsigned DEFAULT NULL,
     created_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     is_active tinyint(1) NOT NULL DEFAULT '1',
-    PRIMARY KEY(id),
-    CONSTRAINT fk_ssqu_ssto_1 FOREIGN KEY (soft_skill_topic_id) REFERENCES SOFT_SKILL_TOPIC (id)
+    PRIMARY KEY(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 

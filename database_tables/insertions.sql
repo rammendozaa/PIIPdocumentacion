@@ -19,10 +19,6 @@ VALUES
 (1, "One on one", "Mentor interview"),
 (2, "Mock", "Mock interview");
 
-INSERT INTO DICT_CATEGORY (id, name, description)
-VALUES 
-(1, "DP", "Dynamic Programming");
-
 INSERT INTO DICT_COMPANY (id, name)
 VALUES 
 (1, "Facebook"),
@@ -148,9 +144,9 @@ INSERT INTO SOFT_SKILL_TOPIC (id, title, description, topic_information, created
 VALUES
 (1,'this is a title','this is a descritpion','{\"blocks\":[{\"key\":\"637gr\",\"text\":\"this is a \",\"type\":\"unstyled\",\"depth\":0,\"inlineStyleRanges\":[],\"entityRanges\":[],\"data\":{}},{\"key\":\"bjcu7\",\"text\":\"\",\"type\":\"unstyled\",\"depth\":0,\"inlineStyleRanges\":[],\"entityRanges\":[],\"data\":{}},{\"key\":\"7htl9\",\"text\":\"\",\"type\":\"unstyled\",\"depth\":0,\"inlineStyleRanges\":[],\"entityRanges\":[],\"data\":{}},{\"key\":\"9us8u\",\"text\":\"test for a soft skill\",\"type\":\"unstyled\",\"depth\":0,\"inlineStyleRanges\":[{\"offset\":0,\"length\":4,\"style\":\"fontfamily-Impact\"},{\"offset\":11,\"length\":4,\"style\":\"SUBSCRIPT\"}],\"entityRanges\":[],\"data\":{\"text-align\":\"center\"}},{\"key\":\"4vr55\",\"text\":\"\",\"type\":\"unstyled\",\"depth\":0,\"inlineStyleRanges\":[],\"entityRanges\":[],\"data\":{\"text-align\":\"center\"}},{\"key\":\"9eifa\",\"text\":\"topic \",\"type\":\"unstyled\",\"depth\":0,\"inlineStyleRanges\":[],\"entityRanges\":[],\"data\":{}},{\"key\":\"3uvss\",\"text\":\"\",\"type\":\"unstyled\",\"depth\":0,\"inlineStyleRanges\":[],\"entityRanges\":[],\"data\":{}},{\"key\":\"dlpdg\",\"text\":\"test 222222\",\"type\":\"unstyled\",\"depth\":0,\"inlineStyleRanges\":[{\"offset\":5,\"length\":6,\"style\":\"SUPERSCRIPT\"}],\"entityRanges\":[],\"data\":{}}],\"entityMap\":{}}','2022-05-07 21:03:50',1);
 
-INSERT INTO SOFT_SKILL_QUESTION (id, title, question, soft_skill_topic_id)
+INSERT INTO SOFT_SKILL_QUESTION (id, title, question)
 VALUES 
-(1, "Start Method Q1", "Tell me a story of a time when you took ownership", 1);
+(1, "Start Method Q1", "Tell me a story of a time when you took ownership");
 
 INSERT INTO USER_SOFT_SKILL_QUESTION (question_id, user_id, status_id, answer)
 VALUES 
