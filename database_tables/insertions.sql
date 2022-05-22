@@ -148,21 +148,9 @@ INSERT INTO SOFT_SKILL_QUESTION (id, title, question, created_by)
 VALUES 
 (1, "Start Method Q1", "Tell me a story of a time when you took ownership", 1);
 
-INSERT INTO USER_SOFT_SKILL_QUESTION (question_id, user_id, status_id, answer)
-VALUES 
-(1, 1, 1, "I have never taken ownership");
-
 INSERT INTO USER_PROBLEM (user_id, problem_id, status_id, language_id)
 VALUES 
 (1, 1, 1, 1);
-
-INSERT INTO USER_PROGRAMMING_TOPIC (user_id, programming_topic_id, status_id)
-VALUES 
-(1, 1, 1);
-
-INSERT INTO USER_SOFT_SKILL_TOPIC (user_id, soft_skill_topic_id, status_id)
-VALUES 
-(1, 1, 1);
 
 INSERT INTO COMPANY_TRACKING (user_id, company_id, status_id, application_url)
 VALUES 
@@ -213,7 +201,3 @@ VALUES
 (1, "question 2?", "yes", "no", "maybe", "what is the question?"),
 (1, "question 3?", "yes", "no", "maybe", "what is the question?"),
 (1, "question 4?", "yes", "no", "maybe", "what is the question?");
-
-INSERT INTO USER_QUESTIONNAIRE (user_id, questionnaire_id, correct_answers, percentage_score, status_id)
-VALUES
-(1, 1, 5, 50.00, 4);
