@@ -117,26 +117,194 @@ VALUES
 ("no-super-hugo@gmail.com", "password", "1998-07-02", "Hugo Michel", "Barbosa Lopez", 0);
 
 
-INSERT INTO PROBLEM (id, title, description, test_cases, tags, difficulty_id, is_active, created_date, url, time_limit, memory_limit, input, output, notes, source, solution)
-VALUES
-(1,'Remove Directed Edges','<p>You are given a directed acyclic graph, consisting of $$$n$$$ vertices and $$$m$$$ edges. The vertices are numbered from $$$1$$$ to $$$n$$$. There are no multiple edges and self-loops.</p><p>Let $$$\\mathit{in}_v$$$ be the number of incoming edges (indegree) and $$$\\mathit{out}_v$$$ be the number of outgoing edges (outdegree) of vertex $$$v$$$.</p><p>You are asked to remove some edges from the graph. Let the new degrees be $$$\\mathit{in\'}_v$$$ and $$$\\mathit{out\'}_v$$$.</p><p>You are only allowed to remove the edges if the following conditions hold for every vertex $$$v$$$: </p><ul> <li> $$$\\mathit{in\'}_v &lt; \\mathit{in}_v$$$ or $$$\\mathit{in\'}_v = \\mathit{in}_v = 0$$$; </li><li> $$$\\mathit{out\'}_v &lt; \\mathit{out}_v$$$ or $$$\\mathit{out\'}_v = \\mathit{out}_v = 0$$$. </li></ul><p>Let\'s call a set of vertices $$$S$$$ <span class=\"tex-font-style-it\">cute</span> if for each pair of vertices $$$v$$$ and $$$u$$$ ($$$v \\neq u$$$) such that $$$v \\in S$$$ and $$$u \\in S$$$, there exists a path either from $$$v$$$ to $$$u$$$ or from $$$u$$$ to $$$v$$$ over the non-removed edges.</p><p>What is the maximum possible size of a <span class=\"tex-font-style-it\">cute</span> set $$$S$$$ after you remove some edges from the graph and both indegrees and outdegrees of all vertices either decrease or remain equal to $$$0$$$?</p>','<style type=\"text/css\">.input, .output {border: 1px solid #888888;} .output {margin-bottom:1em;position:relative;top:-1px;} .output pre,.input pre {background-color:#EFEFEF;line-height:1.25em;margin:0;padding:0.25em;} .title {background-color:#FFFFFF;border-bottom: 1px solid #888888;font-family:arial;font-weight:bold;padding:0.25em;}</style><div class=\"input\"><div class=\"title\">Input</div><pre>\n3 3\n1 2\n2 3\n1 3\n</pre></div><div class=\"output\"><div class=\"title\">Output</div><pre>\n2\n</pre></div><div class=\"input\"><div class=\"title\">Input</div><pre>\n5 0\n</pre></div><div class=\"output\"><div class=\"title\">Output</div><pre>\n1\n</pre></div><div class=\"input\"><div class=\"title\">Input</div><pre>\n7 8\n7 1\n1 3\n6 2\n2 3\n7 2\n2 4\n7 3\n6 3\n</pre></div><div class=\"output\"><div class=\"title\">Output</div><pre>\n3\n</pre>','DP_Graphs_Greedy',1,1,'2022-05-04 21:01:32','https://codeforces.com/problemset/problem/1674/G','2','256','<p>The first line contains two integers $$$n$$$ and $$$m$$$ ($$$1 \\le n \\le 2 \\cdot 10^5$$$; $$$0 \\le m \\le 2 \\cdot 10^5$$$) — the number of vertices and the number of edges of the graph.</p><p>Each of the next $$$m$$$ lines contains two integers $$$v$$$ and $$$u$$$ ($$$1 \\le v, u \\le n$$$; $$$v \\neq u$$$) — the description of an edge.</p><p>The given edges form a valid directed acyclic graph. There are no multiple edges.</p>','<p>Print a single integer — the maximum possible size of a <span class=\"tex-font-style-it\">cute</span> set $$$S$$$ after you remove some edges from the graph and both indegrees and outdegrees of all vertices either decrease or remain equal to $$$0$$$.</p>','','<a style=\"color: black\" href=\"/contest/1674\">Codeforces Round #786 (Div. 3)</a>','There is no solution'),
-(2,'Desktop Rearrangement','<p>Your friend Ivan asked you to help him rearrange his desktop. The desktop can be represented as a rectangle matrix of size $$$n \\times m$$$ consisting of characters \'<span class=\"tex-font-style-tt\">.</span>\' (empty cell of the desktop) and \'<span class=\"tex-font-style-tt\">*</span>\' (an icon).</p><p>The desktop is called <span class=\"tex-font-style-bf\">good</span> if all its icons are occupying some prefix of full columns and, possibly, the prefix of the next column (and there are no icons outside this figure). In other words, some amount of first columns will be filled with icons and, possibly, some amount of first cells of the next (after the last full column) column will be also filled with icons (and all the icons on the desktop belong to this figure). This is pretty much the same as the real life icons arrangement.</p><p>In one move, you can take one icon and move it to any empty cell in the desktop.</p><p>Ivan loves to add some icons to his desktop and remove them from it, so he is asking you to answer $$$q$$$ queries: what is the <span class=\"tex-font-style-bf\">minimum</span> number of moves required to make the desktop <span class=\"tex-font-style-bf\">good</span> after adding/removing one icon?</p><p>Note that <span class=\"tex-font-style-bf\">queries are permanent</span> and change the state of the desktop.</p>','<style type=\"text/css\">.input, .output {border: 1px solid #888888;} .output {margin-bottom:1em;position:relative;top:-1px;} .output pre,.input pre {background-color:#EFEFEF;line-height:1.25em;margin:0;padding:0.25em;} .title {background-color:#FFFFFF;border-bottom: 1px solid #888888;font-family:arial;font-weight:bold;padding:0.25em;}</style><div class=\"input\"><div class=\"title\">Input</div><pre>\n4 4 8\n..**\n.*..\n*...\n...*\n1 3\n2 3\n3 1\n2 3\n3 4\n4 3\n2 3\n2 2\n</pre></div><div class=\"output\"><div class=\"title\">Output</div><pre>\n3\n4\n4\n3\n4\n5\n5\n5\n</pre></div><div class=\"input\"><div class=\"title\">Input</div><pre>\n2 5 5\n*...*\n*****\n1 3\n2 2\n1 3\n1 5\n2 3\n</pre></div><div class=\"output\"><div class=\"title\">Output</div><pre>\n2\n3\n3\n3\n2\n</pre>','DP_Graphs_Greedy',1,1,'2022-05-04 21:01:33','https://codeforces.com/problemset/problem/1674/F','3','256','<p>The first line of the input contains three integers $$$n$$$, $$$m$$$ and $$$q$$$ ($$$1 \\le n, m \\le 1000; 1 \\le q \\le 2 \\cdot 10^5$$$) — the number of rows in the desktop, the number of columns in the desktop and the number of queries, respectively.</p><p>The next $$$n$$$ lines contain the description of the desktop. The $$$i$$$-th of them contains $$$m$$$ characters \'<span class=\"tex-font-style-tt\">.</span>\' and \'<span class=\"tex-font-style-tt\">*</span>\' — the description of the $$$i$$$-th row of the desktop.</p><p>The next $$$q$$$ lines describe queries. The $$$i$$$-th of them contains two integers $$$x_i$$$ and $$$y_i$$$ ($$$1 \\le x_i \\le n; 1 \\le y_i \\le m$$$) — the position of the cell which changes its state (if this cell contained the icon before, then this icon is removed, otherwise an icon appears in this cell).</p>','<p>Print $$$q$$$ integers. The $$$i$$$-th of them should be the <span class=\"tex-font-style-bf\">minimum</span> number of moves required to make the desktop <span class=\"tex-font-style-bf\">good</span> after applying the first $$$i$$$ queries.</p>','','<a style=\"color: black\" href=\"/contest/1674\">Codeforces Round #786 (Div. 3)</a>','There is no solution'),
-(3,'Breaking the Wall','<p>Monocarp plays &quot;Rage of Empires II: Definitive Edition&quot; — a strategic computer game. Right now he\'s planning to attack his opponent in the game, but Monocarp\'s forces cannot enter the opponent\'s territory since the opponent has built a wall.</p><p>The wall consists of $$$n$$$ sections, aligned in a row. The $$$i$$$-th section initially has durability $$$a_i$$$. If durability of some section becomes $$$0$$$ or less, this section is considered broken.</p><p>To attack the opponent, Monocarp needs to break at least two sections of the wall (any two sections: possibly adjacent, possibly not). To do this, he plans to use an onager — a special siege weapon. The onager can be used to shoot any section of the wall; the shot deals $$$2$$$ damage to the target section and $$$1$$$ damage to adjacent sections. In other words, if the onager shoots at the section $$$x$$$, then the durability of the section $$$x$$$ decreases by $$$2$$$, and the durability of the sections $$$x - 1$$$ and $$$x + 1$$$ (if they exist) decreases by $$$1$$$ each. </p><p>Monocarp can shoot at any sections any number of times, <span class=\"tex-font-style-bf\">he can even shoot at broken sections</span>.</p><p>Monocarp wants to calculate the minimum number of onager shots needed to break at least two sections. Help him!</p>','<style type=\"text/css\">.input, .output {border: 1px solid #888888;} .output {margin-bottom:1em;position:relative;top:-1px;} .output pre,.input pre {background-color:#EFEFEF;line-height:1.25em;margin:0;padding:0.25em;} .title {background-color:#FFFFFF;border-bottom: 1px solid #888888;font-family:arial;font-weight:bold;padding:0.25em;}</style><div class=\"input\"><div class=\"title\">Input</div><pre>\n5\n20 10 30 10 20\n</pre></div><div class=\"output\"><div class=\"title\">Output</div><pre>\n10\n</pre></div><div class=\"input\"><div class=\"title\">Input</div><pre>\n3\n1 8 1\n</pre></div><div class=\"output\"><div class=\"title\">Output</div><pre>\n1\n</pre></div><div class=\"input\"><div class=\"title\">Input</div><pre>\n6\n7 6 6 8 5 8\n</pre></div><div class=\"output\"><div class=\"title\">Output</div><pre>\n4\n</pre></div><div class=\"input\"><div class=\"title\">Input</div><pre>\n6\n14 3 8 10 15 4\n</pre></div><div class=\"output\"><div class=\"title\">Output</div><pre>\n4\n</pre></div><div class=\"input\"><div class=\"title\">Input</div><pre>\n4\n1 100 100 1\n</pre></div><div class=\"output\"><div class=\"title\">Output</div><pre>\n2\n</pre></div><div class=\"input\"><div class=\"title\">Input</div><pre>\n3\n40 10 10\n</pre></div><div class=\"output\"><div class=\"title\">Output</div><pre>\n7\n</pre>','DP_Graphs_Greedy',1,1,'2022-05-04 21:01:35','https://codeforces.com/problemset/problem/1674/E','2','256','<p>The first line contains one integer $$$n$$$ ($$$2 \\le n \\le 2 \\cdot 10^5$$$) — the number of sections.</p><p>The second line contains the sequence of integers $$$a_1, a_2, \\dots, a_n$$$ ($$$1 \\le a_i \\le 10^6$$$), where $$$a_i$$$ is the initial durability of the $$$i$$$-th section.</p>','<p>Print one integer — the minimum number of onager shots needed to break at least two sections of the wall.</p>','','<a style=\"color: black\" href=\"/contest/1674\">Codeforces Round #786 (Div. 3)</a>','There is no solution'),
-(4,'A-B-C Sort','<p>You are given three arrays $$$a$$$, $$$b$$$ and $$$c$$$. Initially, array $$$a$$$ consists of $$$n$$$ elements, arrays $$$b$$$ and $$$c$$$ are empty.</p><p>You are performing the following algorithm that consists of two steps: </p><ul> <li> Step $$$1$$$: while $$$a$$$ is not empty, you take <span class=\"tex-font-style-it\">the last element</span> from $$$a$$$ and move it <span class=\"tex-font-style-it\">in the middle</span> of array $$$b$$$. If $$$b$$$ currently has odd length, you can choose: place the element from $$$a$$$ to the left or to the right of the middle element of $$$b$$$. As a result, $$$a$$$ becomes empty and $$$b$$$ consists of $$$n$$$ elements. </li><li> Step $$$2$$$: while $$$b$$$ is not empty, you take <span class=\"tex-font-style-it\">the middle element</span> from $$$b$$$ and move it <span class=\"tex-font-style-it\">to the end</span> of array $$$c$$$. If $$$b$$$ currently has even length, you can choose which of two middle elements to take. As a result, $$$b$$$ becomes empty and $$$c$$$ now consists of $$$n$$$ elements. </li></ul> Refer to the Note section for examples.<p>Can you make array $$$c$$$ sorted in non-decreasing order?</p>','<style type=\"text/css\">.input, .output {border: 1px solid #888888;} .output {margin-bottom:1em;position:relative;top:-1px;} .output pre,.input pre {background-color:#EFEFEF;line-height:1.25em;margin:0;padding:0.25em;} .title {background-color:#FFFFFF;border-bottom: 1px solid #888888;font-family:arial;font-weight:bold;padding:0.25em;}</style><div class=\"input\"><div class=\"title\">Input</div><pre>\n3\n4\n3 1 5 3\n3\n3 2 1\n1\n7331\n</pre></div><div class=\"output\"><div class=\"title\">Output</div><pre>\nYES\nNO\nYES\n</pre>','DP_Graphs_Greedy',1,1,'2022-05-04 21:01:37','https://codeforces.com/problemset/problem/1674/D','2','256','<p>The first line contains a single integer $$$t$$$ ($$$1 \\le t \\le 2 \\cdot 10^4$$$) — the number of test cases. Next $$$t$$$ cases follow.</p><p>The first line of each test case contains the single integer $$$n$$$ ($$$1 \\le n \\le 2 \\cdot 10^5$$$) — the length of array $$$a$$$.</p><p>The second line of each test case contains $$$n$$$ integers $$$a_1, a_2, \\dots, a_n$$$ ($$$1 \\le a_i \\le 10^6$$$) — the array $$$a$$$ itself.</p><p>It\'s guaranteed that the sum of $$$n$$$ doesn\'t exceed $$$2 \\cdot 10^5$$$.</p>','<p>For each test, print <span class=\"tex-font-style-tt\">YES</span> (case-insensitive), if you can make array $$$c$$$ sorted in non-decreasing order. Otherwise, print <span class=\"tex-font-style-tt\">NO</span> (case-insensitive).</p>','','<a style=\"color: black\" href=\"/contest/1674\">Codeforces Round #786 (Div. 3)</a>','There is no solution');
-
 INSERT INTO TEMPLATE (id, name, description, position)
 VALUES 
 (1, "Introduction", "This is the first template that users will see", 1),
 (2, "Medium", "This is the first template that users will see", 1),
 (3, "Advanced", "This is the first template that users will see", 1);
 
-INSERT INTO QUESTIONNAIRE (id, title, description, total_questions, created_by)
-VALUES
-(7, "This is a questionnaire", "this is a description", 4, 1);
+INSERT INTO QUESTIONNAIRE (id, title, description, total_questions)
+VALUES 
+(1000, "Placement quiz", "This is a quiz dedicated for placement", "32");
 
 INSERT INTO QUESTIONNAIRE_QUESTION (questionnaire_id, question, answer, option_1, option_2, option_3)
 VALUES
-(7, "question 1?", "yes", "no", "maybe", "what is the question?"),
-(7, "question 2?", "yes", "no", "maybe", "what is the question?"),
-(7, "question 3?", "yes", "no", "maybe", "what is the question?"),
-(7, "question 4?", "yes", "no", "maybe", "what is the question?");
+(1000,"What is a correct syntax to output 'Hello World' in C++?",
+"cout << \"Hello World\";",
+"Console.WriteLine(\"Hello World\");",
+"System.out.println(\"Hello World\");",
+"print (\"Hello World\");"),
+(1000,"How do you insert COMMENTS in C++ code?",
+"// This is a comment",
+"/* This is a comment",
+"# This is a comment",
+"-> This is a comment"),
+(1000,"Which data type is used to create a variable that should store text?",
+"string",
+"txt",
+"String",
+"myString"),
+(1000, "How do you create a variable with the numeric value 5?",
+"int x = 5;",
+"x = 5;",
+"double x = 5;",
+"num x = 5"),
+(1000,"How do you create a variable with the floating number 2.8?",
+"double x = 2.8;",
+"int x = 2.8;",
+"byte x = 2.8;",
+"x = 2.8;"),
+(1000,"Which method can be used to find the length of a string?",
+"length()",
+"getLength()",
+"getSize()",
+"len()"),
+(1000,"Which operator is used to add together two values?",
+"+",
+"*",
+"plus",
+"&"),
+(1000,"Which operator can be used to compare two values?",
+"==",
+"<>",
+"><",
+"="),
+(1000,"To declare an array in C++, define the variable type with:",
+"[]",
+"{}",
+"()",
+"createArray()"),
+(1000,"Array indexes start with",
+"0",
+"1",
+"2",
+"3"),
+(1000,"How do you create a function in C++?",
+"functionName()",
+"functionName[]",
+"functionName.",
+"(functionName)"),
+(1000,"How do you call a function in C++",
+"functionName();",
+"(functionName)",
+"functionName",
+"functionName[];"),
+(1000,"Which keyword is used to create a class in C++?",
+"class",
+"MyClass",
+"class()",
+"className"),
+(1000,"What is the correct way to create an object called myObj of MyClass?",
+"class myObj = new MyClass();",
+"class MyClass = new myObj();",
+"new myObj = MyClass();",
+"MyClass myObj;"),
+(1000,"Which operator is used to multiply numbers?",
+"*",
+"#",
+"%",
+"x"),
+(1000,"How do you start writing an if statement in C++?",
+"if (x > y)",
+"if x > y:",
+"if (x > y) then",
+"if (x > y) else"),
+(1000,"How do you write a loop in C++",
+"while( x > y)",
+"while x > y {",
+"while x > y :",
+"x > y while {"),
+(1000,"What’s an algorithm?",
+"A set of step-by-step instructions to resolve a problem",
+"Patterns and trends used to solve a problem",
+"A programming language",
+"start method"),
+(1000,"What are algorithms used for?",
+"To plan out the solution to a problem",
+"As a platform to program a solution",
+"To test a solution to a problem",
+"For fun"),
+(1000,"How can an algorithm be represented?",
+"As a flowchart or pseudocode",
+"As a flowchart",
+"As pseudocode",
+"draw"),
+(1000,"What is a flowchart?",
+"A diagram that represents a set of instructions",
+"A high-level language that has specific syntax",
+"A way of describing a set of instructions that doesn’t use specific syntax",
+"A drawing"),
+(1000,"What is pseudocode?",
+"A way of describing a set of instructions that doesn’t use specific syntax",
+"A high-level language that has specific syntax",
+"A diagram that represents a set of instructions",
+"A sub variant of C++"),
+(1000,"What’s the time, space complexity of the following code? 
+for (i = 0; i < N; i++) { a = a + rand();}
+for (j = 0; j < M; j++) { b = b + rand();}",
+"O(N + M) time, O(1) space",
+"O(N * M) time, O(1) space",
+"O(N + M) time, O(N + M) space",
+"O(N * M) time, O(N + M) space"),
+(1000,"What is the time complexity of the following code:
+int a = 0;
+for (i = 0; i < N; i++) {
+		for (j = N; j > i; j--) {
+			a = a + i + j;
+	}
+}",
+"O(N*N)",
+"O(N)",
+"O(N*log(N))",
+"O(N * Sqrt(N))"),
+(1000,"What is the time complexity of the following code:
+int i, j, k = 0;
+for (i = n / 2; i <= n; i++) {
+    for (j = 2; j <= n; j = j * 2) {
+        k = k + n / 2;
+    }
+}",
+"O(NlogN)",
+"O(N)",
+"O(N^2)",
+"O(N^2LogN)"),
+(1000,"What does it mean when we say that an algorithm X is asymptotically more efficient than Y?",
+"X will always be a better choice for large inputs",
+"X will always be a better choice for small inputs",
+"Y will always be a better choice for small inputs",
+"X will always be a better choice for all inputs"),
+(1000,"What is the time complexity of the following code:
+int a = 0, i = N;
+while (i > 0) {
+    a += i;
+    i /= 2;
+}",
+"O(log N)",
+"O(N)",
+"O(sqrt(N))",
+"O(N/2)"),
+(1000,"Which of the following best describes the useful criterion for comparing the efficiency of algorithms?",
+"Both of the above",
+"Time",
+"Memory",
+"None of the above"),
+(1000,"How is time complexity measured?",
+"By counting the number of primitive operations performed by the algorithm on given input size.",
+"By counting the number of algorithms in an algorithm.",
+"By counting the size of data input to the algorithm.",
+"None of the above"),
+(1000,"What will be the time complexity of the following code?",
+"O(log K (N))",
+"O(N)",
+"O(K)",
+"O(log N (K))"),
+(1000,"What are soft skills?",
+"All of the above",
+"Soft skills are personality traits and behaviors that will help candidates get hired and succeed in their work.",
+"Soft skills are abilities that relate to how you work and how you interact with other people.",
+"None all of the above"),
+(1000,"START is an acronym for ..",
+"Situation or Task, Action, Result, Takeaway.",
+"Situation or Task, Ability, Radiation, Takeaway.",
+"Start or Task, Answers, Result, Takeaway.",
+"Situation or Task, Action,Rail, Technique.");
