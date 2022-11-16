@@ -25,8 +25,17 @@ VALUES
 (2, "Microsoft"),
 (3, "Google"),
 (4, "Amazon"),
-(5, "Apple");
-
+(5, "Apple"),
+(6, "Airbnb"),
+(7, "Uber"),
+(8, "Lyft"),
+(9, "Twitter"),
+(10, "Netflix"),
+(11, "Tesla"),
+(12, "Oracle"),
+(13, "Twitch"),
+(14, "Other");
+  
 INSERT INTO DICT_DIFFICULTY (id, name)
 VALUES 
 (1, "Very easy"),
