@@ -1,0 +1,2 @@
+DROP DATABASE PIIP_pruebas;
+CREATE DATABASE PIIP_pruebas;
