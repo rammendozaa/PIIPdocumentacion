@@ -6,3 +6,6 @@ password=$3
 
 mysql --host=$server --user=$user --password=$password "PIIP_pruebas" < "TABLES.sql"
 mysql --host=$server --user=$user --password=$password "PIIP_pruebas" < "base_insertions.sql"
+
+#mysql --host=$server --user=$user --password=$password "PIIP" < "TABLES.sql"
+#mysql --host=$server --user=$user --password=$password "PIIP" < "base_insertions.sql"
