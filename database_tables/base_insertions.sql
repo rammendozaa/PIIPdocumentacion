@@ -1,3 +1,9 @@
+INSERT INTO DICT_USER_STATUS (id, name, description)
+VALUES 
+(0, "Inactive", "User not active"),
+(1, "Active", "Active and verified user"),
+(2, "Pending verification", "Active unverified user");
+
 INSERT INTO DICT_ACTIVITY_STATUS (id, name, description)
 VALUES 
 (1, "Created", "Not started yet"),
@@ -51,7 +57,6 @@ VALUES
 (3, "Java"),
 (4, "Python"),
 (5, "Javascript");
-
 
 INSERT INTO DICT_SCHOOL (name, description)
 VALUES 
@@ -107,7 +112,6 @@ VALUES
 ("CECyT 18", "CECyT 18"),
 ("CECyT 19", "CECyT 19"),
 ("CET 1", "CET 1");
-
 
 INSERT INTO DICT_TRACKING_STATUS (id, name, description)
 VALUES 
