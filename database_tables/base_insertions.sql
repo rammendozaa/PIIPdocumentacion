@@ -118,14 +118,12 @@ VALUES
 (5, "Accepted", "Recevied offer"),
 (6, "Rejected", "Not accepted");
 
-/*
-INSERT INTO ADMINISTRATOR (email, password, dob, first_name, last_name, is_super)
+INSERT INTO ADMINISTRATOR (email, hash, salt, dob, first_name, last_name, is_super)
 VALUES 
-("rammendozaa@yahoo.com", "password", "1998-07-02", "Alvaro", "Mendoza Ramirez", 1),
-("hugomichelbl@gmail.com", "password", "1998-07-02", "Hugo Michel", "Barbosa Lopez", 1),
-("no-super-alvaro@yahoo.com", "password", "1998-07-02", "Alvaro", "Mendoza Ramirez", 0),
-("no-super-hugo@gmail.com", "password", "1998-07-02", "Hugo Michel", "Barbosa Lopez", 0);
-*/
+("rammendozaayahoo.com", 0xA6F6D68BD31F25713867D7C6040C5A09FCBD38B3AA813F613631EDFE0BE12F75, 0xC584131F9F1CAA6750BC216C39065B72, "1998-07-02", "Alvaro", "Mendoza Ramirez", 1),
+("hugomichelbl@gmail.com", 0xA6F6D68BD31F25713867D7C6040C5A09FCBD38B3AA813F613631EDFE0BE12F75, 0xC584131F9F1CAA6750BC216C39065B72, "1998-07-02", "Hugo Michel", "Barbosa Lopez", 1),
+("no-super-alvaro@yahoo.com", 0xA6F6D68BD31F25713867D7C6040C5A09FCBD38B3AA813F613631EDFE0BE12F75, 0xC584131F9F1CAA6750BC216C39065B72, "1998-07-02", "Alvaro", "Mendoza Ramirez", 0),
+("no-super-hugo@gmail.com", 0xA6F6D68BD31F25713867D7C6040C5A09FCBD38B3AA813F613631EDFE0BE12F75, 0xC584131F9F1CAA6750BC216C39065B72, "1998-07-02", "Hugo Michel", "Barbosa Lopez", 0);
 
 INSERT INTO TEMPLATE (id, name, description, position)
 VALUES 
