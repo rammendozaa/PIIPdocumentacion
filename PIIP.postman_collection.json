@@ -1,0 +1,756 @@
+{
+	"info": {
+		"_postman_id": "887da72f-42fc-4ae9-a5e4-bec71113506e",
+		"name": "PIIP Endpoints",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "20225332"
+	},
+	"item": [
+		{
+			"name": "template",
+			"item": [
+				{
+					"name": "get template by id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{PIIP}}/template?template_id",
+							"host": [
+								"{{PIIP}}"
+							],
+							"path": [
+								"template"
+							],
+							"query": [
+								{
+									"key": "template_id",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add template",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"aaaaaaaaaaaaaaaaaa\",\n    \"description\": \"taaaaaaaaaaaaaaaaaaate\",\n    \"sections\": [\n        {\n            \"name\": \"aaaaaaaaaaaaaaaaaa 1\",\n            \"description\": \"this aaaaaaaaaaaaaaaaaa ction\",\n            \"position\": 1,\n            \"activities\": [\n                {\n                    \"name\": \"aaaaaaaaaaaaaaaaaa 1\",\n                    \"description\": \"aaaaaaaaaaaaaaaaaa 1 - 1\",\n                    \"activityType\": 1,\n                    \"position\": 1,\n                    \"externalReference\": 1 \n                },\n                {\n                    \"name\": \"aaaaaaaaaaaaaaaaaa 2 section 1\",\n                    \"description\": \"aaaaaaaaaaaaaaaaaa 1 - 2\",\n                    \"activityType\": 2,\n                    \"position\": 2,\n                    \"externalReference\": 1 \n                }\n            ]\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{PIIP}}/template/add",
+							"host": [
+								"{{PIIP}}"
+							],
+							"path": [
+								"template",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "disable template",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{PIIP}}/template?template_id=4",
+							"host": [
+								"{{PIIP}}"
+							],
+							"path": [
+								"template"
+							],
+							"query": [
+								{
+									"key": "template_id",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "user",
+			"item": [
+				{
+					"name": "assign template to user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"templateIds\": [1]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{PIIP}}/user/:user_id/template",
+							"host": [
+								"{{PIIP}}"
+							],
+							"path": [
+								"user",
+								":user_id",
+								"template"
+							],
+							"variable": [
+								{
+									"key": "user_id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get user template",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{PIIP}}/user/:user_id/template",
+							"host": [
+								"{{PIIP}}"
+							],
+							"path": [
+								"user",
+								":user_id",
+								"template"
+							],
+							"variable": [
+								{
+									"key": "user_id",
+									"value": "2"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "remove user template section",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{PIIP}}/user/section/:user_template_section_id/delete",
+							"host": [
+								"{{PIIP}}"
+							],
+							"path": [
+								"user",
+								"section",
+								":user_template_section_id",
+								"delete"
+							],
+							"variable": [
+								{
+									"key": "user_template_section_id",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add activity to user template section",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"new act\",\n    \"description\": \"new act\",\n    \"activityType\": 3,\n    \"position\": 1,\n    \"externalReference\": 1\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{PIIP}}/user/:user_id/activity/:user_template_section_id",
+							"host": [
+								"{{PIIP}}"
+							],
+							"path": [
+								"user",
+								":user_id",
+								"activity",
+								":user_template_section_id"
+							],
+							"variable": [
+								{
+									"key": "user_id",
+									"value": "1"
+								},
+								{
+									"key": "user_template_section_id",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "add section to user template",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"another section 1\",\n    \"description\": \"another section\",\n    \"position\": 2,\n    \"activities\": [{\n            \"name\": \"activity for new section\",\n            \"description\": \"activity for new section\",\n            \"activityType\": 1,\n            \"position\": 1,\n            \"externalReference\": 2\n        },\n        {\n            \"name\": \"aactivity for new section 2.0\",\n            \"description\": \"aactivity for new section 2.0\",\n            \"activityType\": 2,\n            \"position\": 2,\n            \"externalReference\": 2\n        }\n    ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{PIIP}}/user/:user_id/section/:user_template_id",
+							"host": [
+								"{{PIIP}}"
+							],
+							"path": [
+								"user",
+								":user_id",
+								"section",
+								":user_template_id"
+							],
+							"variable": [
+								{
+									"key": "user_id",
+									"value": "1"
+								},
+								{
+									"key": "user_template_id",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "remove user template activity",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{PIIP}}/user/activity/:user_template_activity_id/delete",
+							"host": [
+								"{{PIIP}}"
+							],
+							"path": [
+								"user",
+								"activity",
+								":user_template_activity_id",
+								"delete"
+							],
+							"variable": [
+								{
+									"key": "user_template_activity_id",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "remove user template",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{PIIP}}/user/template/:user_template_id/delete",
+							"host": [
+								"{{PIIP}}"
+							],
+							"path": [
+								"user",
+								"template",
+								":user_template_id",
+								"delete"
+							],
+							"variable": [
+								{
+									"key": "user_template_id",
+									"value": "4"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "get unassigned templates",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{PIIP}}/user/:user_id/template/unassigned",
+							"host": [
+								"{{PIIP}}"
+							],
+							"path": [
+								"user",
+								":user_id",
+								"template",
+								"unassigned"
+							],
+							"variable": [
+								{
+									"key": "user_id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "company tracking",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"statusId\":3,\n    \"applicationURL\": \"www.thisisaurl.com\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{PIIP}}/user/:user_id/tracking",
+							"host": [
+								"{{PIIP}}"
+							],
+							"path": [
+								"user",
+								":user_id",
+								"tracking"
+							],
+							"variable": [
+								{
+									"key": "user_id",
+									"value": null
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "company tracking link",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"description\": \"new\",\n    \"url\": \"new\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{PIIP}}/user/tracking/:company_tracking_id",
+							"host": [
+								"{{PIIP}}"
+							],
+							"path": [
+								"user",
+								"tracking",
+								":company_tracking_id"
+							],
+							"variable": [
+								{
+									"key": "company_tracking_id",
+									"value": "7"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "create user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "firstname",
+									"value": "alvaro",
+									"type": "text"
+								},
+								{
+									"key": "lastname",
+									"value": "mendoza",
+									"type": "text"
+								},
+								{
+									"key": "email",
+									"value": "amendozar1300@alumno.ipn.mx",
+									"type": "text"
+								},
+								{
+									"key": "password",
+									"value": "asdf",
+									"type": "text"
+								},
+								{
+									"key": "school_id",
+									"value": "3",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{PIIP}}/sign-up",
+							"host": [
+								"{{PIIP}}"
+							],
+							"path": [
+								"sign-up"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "admin",
+			"item": [
+				{
+					"name": "create admin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\": \"Alvaro\",\n    \"last\": \"Mendoza\",\n    \"email\": \"rammendozaa@yahoo.com\",\n    \"isSuper\": 1,\n    \"ps\": \"\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{PIIP}}/admin",
+							"host": [
+								"{{PIIP}}"
+							],
+							"path": [
+								"admin"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Health Check",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{PIIP}}",
+					"host": [
+						"{{PIIP}}"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "insert problems",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{PIIP}}/insertProblemsToDB",
+					"host": [
+						"{{PIIP}}"
+					],
+					"path": [
+						"insertProblemsToDB"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get all problems",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTY1MDI1MDU0MywianRpIjoiNzJkZWVhOTUtMGMyNy00Y2YzLWFhMDctZGY2N2JjMjM5MzUwIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6InJhbW1lbmRvemFhQHlhaG9vLmNvbSIsIm5iZiI6MTY1MDI1MDU0MywiZXhwIjoxNjUwMjU0MTQzfQ.f1LwFCMFIkhepVdvQi9pAAPEBEjzZNpwvkC2vqD0jVs",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "{{PIIP}}/problems?user_id=",
+					"host": [
+						"{{PIIP}}"
+					],
+					"path": [
+						"problems"
+					],
+					"query": [
+						{
+							"key": "user_id",
+							"value": ""
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "create questionnaire",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"first questionnaire\",\n    \"description\": \"this is the first\",\n    \"questions\": [\n        {\n            \"questionText\": \"Question 1\",\n            \"answerOptions\": [\n                {\n                    \"answerText\": \"this is not answer 1\",\n                    \"isCorrect\": false\n                },{\n                    \"answerText\": \"this is answer\",\n                    \"isCorrect\": true\n                },{\n                    \"answerText\": \"this is not answer 2\",\n                    \"isCorrect\": false\n                },{\n                    \"answerText\": \"this is not answer 3\",\n                    \"isCorrect\": false\n                }\n            ]\n        },\n        {\n            \"questionText\": \"Question2 \",\n            \"answerOptions\": [\n                {\n                    \"answerText\": \"this is answer\",\n                    \"isCorrect\": false\n                },{\n                    \"answerText\": \"this is answer\",\n                    \"isCorrect\": true\n                },{\n                    \"answerText\": \"this is answer\",\n                    \"isCorrect\": false\n                },{\n                    \"answerText\": \"this is answer\",\n                    \"isCorrect\": false\n                }\n            ]\n        },\n        {\n            \"questionText\": \"Question 3\",\n            \"answerOptions\": [\n                {\n                    \"answerText\": \"this is answer\",\n                    \"isCorrect\": false\n                },{\n                    \"answerText\": \"this is answer\",\n                    \"isCorrect\": true\n                },{\n                    \"answerText\": \"this is answer\",\n                    \"isCorrect\": false\n                },{\n                    \"answerText\": \"this is answer\",\n                    \"isCorrect\": false\n                }\n            ]\n        },\n        {\n            \"questionText\": \"Question  4\",\n            \"answerOptions\": [\n                {\n                    \"answerText\": \"this is answer\",\n                    \"isCorrect\": false\n                },{\n                    \"answerText\": \"this is answer\",\n                    \"isCorrect\": true\n                },{\n                    \"answerText\": \"this is answer\",\n                    \"isCorrect\": false\n                },{\n                    \"answerText\": \"this is answer\",\n                    \"isCorrect\": false\n                }\n            ]\n        }\n    ]\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{PIIP}}/questionnaire",
+					"host": [
+						"{{PIIP}}"
+					],
+					"path": [
+						"questionnaire"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get soft skill questions",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{PIIP}}/soft-skill-question",
+					"host": [
+						"{{PIIP}}"
+					],
+					"path": [
+						"soft-skill-question"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get soft skill topics",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{PIIP}}/softSkillsTopics",
+					"host": [
+						"{{PIIP}}"
+					],
+					"path": [
+						"softSkillsTopics"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get algorithm topics",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{PIIP}}/algorithmTopics",
+					"host": [
+						"{{PIIP}}"
+					],
+					"path": [
+						"algorithmTopics"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get problem by id",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "problem_id",
+							"value": "1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{PIIP}}/problem",
+					"host": [
+						"{{PIIP}}"
+					],
+					"path": [
+						"problem"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "interview",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{PIIP}}/interview",
+					"host": [
+						"{{PIIP}}"
+					],
+					"path": [
+						"interview"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get schools",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{PIIP}}/schools",
+					"host": [
+						"{{PIIP}}"
+					],
+					"path": [
+						"schools"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"if (pm.response.to.have.status(200)) {",
+							"    pm.collectionVariables.set(\"authToken\", String(pm.response.json()[\"access_token\"]));",
+							"}"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "email",
+							"value": "rammendozaa@yahoo.com",
+							"type": "text"
+						},
+						{
+							"key": "password",
+							"value": "password",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{PIIP}}/token",
+					"host": [
+						"{{PIIP}}"
+					],
+					"path": [
+						"token"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "get questionnaires",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "{{authToken}}",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{PIIP}}/questionnaire",
+					"host": [
+						"{{PIIP}}"
+					],
+					"path": [
+						"questionnaire"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "authToken",
+			"value": ""
+		}
+	]
+}
