@@ -3,14 +3,26 @@ USE PIIP_pruebas;
 -- CREATE DATABASE PIIP;
 -- USE PIIP;
 
+-- table that has user statuses
+DROP TABLE IF EXISTS DICT_USER_STATUS;
+
+CREATE TABLE DICT_USER_STATUS (
+    id tinyint(1),
+    name varchar(255) DEFAULT NULL,
+    description varchar(255) DEFAULT NULL,
+    is_active tinyint(1) NOT NULL DEFAULT 1,
+    PRIMARY KEY(id)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+
 -- table that has all the possible status of an assignment
 DROP TABLE IF EXISTS DICT_ACTIVITY_STATUS;
 
 CREATE TABLE DICT_ACTIVITY_STATUS (
-    id int(11) unsigned NOT NULL AUTO_INCREMENT,
+    id int(4) unsigned NOT NULL AUTO_INCREMENT,
     name varchar(255) DEFAULT NULL,
     description varchar(255) DEFAULT NULL,
-    is_active tinyint(1) NOT NULL DEFAULT '1',
+    is_active tinyint(1) NOT NULL DEFAULT 1,
     PRIMARY KEY(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -19,21 +31,22 @@ CREATE TABLE DICT_ACTIVITY_STATUS (
 DROP TABLE IF EXISTS DICT_ACTIVITY_TYPE;
 
 CREATE TABLE DICT_ACTIVITY_TYPE (
-    id int(11) unsigned NOT NULL AUTO_INCREMENT,
+    id int(4) unsigned NOT NULL AUTO_INCREMENT,
     name varchar(255) DEFAULT NULL,
     description varchar(255) DEFAULT NULL,
-    is_active tinyint(1) NOT NULL DEFAULT '1',
+    is_active tinyint(1) NOT NULL DEFAULT 1,
     PRIMARY KEY(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 -- table that has all the possible interview types
 DROP TABLE IF EXISTS DICT_INTERVIEW_TYPE;
 
 CREATE TABLE DICT_INTERVIEW_TYPE (
-    id int(11) unsigned NOT NULL AUTO_INCREMENT,
+    id int(4) unsigned NOT NULL AUTO_INCREMENT,
     name varchar(255) DEFAULT NULL,
     description varchar(255) DEFAULT NULL,
-    is_active tinyint(1) NOT NULL DEFAULT '1',
+    is_active tinyint(1) NOT NULL DEFAULT 1,
     PRIMARY KEY(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -42,9 +55,9 @@ CREATE TABLE DICT_INTERVIEW_TYPE (
 DROP TABLE IF EXISTS DICT_COMPANY;
 
 CREATE TABLE DICT_COMPANY (
-    id int(11) unsigned NOT NULL AUTO_INCREMENT,
+    id int(4) unsigned NOT NULL AUTO_INCREMENT,
     name varchar(255) DEFAULT NULL,
-    is_active tinyint(1) NOT NULL DEFAULT '1',
+    is_active tinyint(1) NOT NULL DEFAULT 1,
     PRIMARY KEY(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -53,9 +66,9 @@ CREATE TABLE DICT_COMPANY (
 DROP TABLE IF EXISTS DICT_DIFFICULTY;
 
 CREATE TABLE DICT_DIFFICULTY (
-    id int(11) unsigned NOT NULL AUTO_INCREMENT,
+    id int(3) unsigned NOT NULL AUTO_INCREMENT,
     name varchar(255) DEFAULT NULL,
-    is_active tinyint(1) NOT NULL DEFAULT '1',
+    is_active tinyint(1) NOT NULL DEFAULT 1,
     PRIMARY KEY(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -64,9 +77,9 @@ CREATE TABLE DICT_DIFFICULTY (
 DROP TABLE IF EXISTS DICT_LANGUAGE;
 
 CREATE TABLE DICT_LANGUAGE (
-    id int(11) unsigned NOT NULL AUTO_INCREMENT,
+    id int(3) unsigned NOT NULL AUTO_INCREMENT,
     name varchar(255) DEFAULT NULL,
-    is_active tinyint(1) NOT NULL DEFAULT '1',
+    is_active tinyint(1) NOT NULL DEFAULT 1,
     PRIMARY KEY(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -75,10 +88,10 @@ CREATE TABLE DICT_LANGUAGE (
 DROP TABLE IF EXISTS DICT_SCHOOL;
 
 CREATE TABLE DICT_SCHOOL (
-    id int(11) unsigned NOT NULL AUTO_INCREMENT,
+    id int(5) unsigned NOT NULL AUTO_INCREMENT,
     name varchar(255) DEFAULT NULL,
     description varchar(255) DEFAULT NULL,
-    is_active tinyint(1) NOT NULL DEFAULT '1',
+    is_active tinyint(1) NOT NULL DEFAULT 1,
     PRIMARY KEY(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -87,10 +100,10 @@ CREATE TABLE DICT_SCHOOL (
 DROP TABLE IF EXISTS DICT_TRACKING_STATUS;
 
 CREATE TABLE DICT_TRACKING_STATUS (
-    id int(11) unsigned NOT NULL AUTO_INCREMENT,
+    id int(4) unsigned NOT NULL AUTO_INCREMENT,
     name varchar(255) DEFAULT NULL,
     description varchar(255) DEFAULT NULL,
-    is_active tinyint(1) NOT NULL DEFAULT '1',
+    is_active tinyint(1) NOT NULL DEFAULT 1,
     PRIMARY KEY(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -108,10 +121,11 @@ CREATE TABLE USER (
     hash BLOB,
     salt BLOB,
     school_id int(11) unsigned DEFAULT NULL,
-    is_active tinyint(1) NOT NULL DEFAULT '1',
+    is_active tinyint(1) NOT NULL DEFAULT 1,
     created_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY(id),
-    CONSTRAINT fk_user_disc_1 FOREIGN KEY (school_id) REFERENCES DICT_SCHOOL (id)
+    CONSTRAINT fk_user_disc_1 FOREIGN KEY (school_id) REFERENCES DICT_SCHOOL (id),
+    CONSTRAINT fk_user_dius_1 FOREIGN KEY (is_active) REFERENCES DICT_USER_STATUS (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 
@@ -127,8 +141,8 @@ CREATE TABLE ADMINISTRATOR (
     last_name varchar(255) DEFAULT NULL,
     hash BLOB,
     salt BLOB,
-    is_super tinyint(1) DEFAULT '0',
-    is_active tinyint(1) NOT NULL DEFAULT '1',
+    is_super tinyint(1) DEFAULT 0,
+    is_active tinyint(1) NOT NULL DEFAULT 1,
     created_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY(id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -141,9 +155,9 @@ CREATE TABLE USER_ADMINISTRATOR (
     id int(11) unsigned NOT NULL AUTO_INCREMENT,
     user_id int(11) unsigned DEFAULT NULL,
     administrator_id int(11) unsigned DEFAULT NULL,
-    is_graduate tinyint(1) NOT NULL DEFAULT '0',
+    is_graduate tinyint(1) NOT NULL DEFAULT 0,
     created_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    is_active tinyint(1) NOT NULL DEFAULT '1',
+    is_active tinyint(1) NOT NULL DEFAULT 1,
     PRIMARY KEY(id),
     CONSTRAINT fk_usad_user_1 FOREIGN KEY (user_id) REFERENCES USER (id),
     CONSTRAINT fk_usad_admi_1 FOREIGN KEY (administrator_id) REFERENCES ADMINISTRATOR (id)
@@ -159,13 +173,13 @@ CREATE TABLE INTERVIEW (
     administrator_id int(11) unsigned DEFAULT NULL,
     language_id int(11) unsigned DEFAULT NULL,
     chosen_date timestamp DEFAULT NULL,
-    interview_type_id int(11) unsigned DEFAULT '1',
+    interview_type_id int(11) unsigned DEFAULT 1,
     interview_url text DEFAULT NULL,
     interview_code text DEFAULT NULL,
     feedback text DEFAULT NULL,
-    is_confirmed tinyint(1) NOT NULL DEFAULT '0',
+    is_confirmed tinyint(1) NOT NULL DEFAULT 0,
     comment text DEFAULT NULL,
-    is_active tinyint(1) NOT NULL DEFAULT '1',
+    is_active tinyint(1) NOT NULL DEFAULT 1,
     created_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY(id),
     CONSTRAINT fk_inte_user_1 FOREIGN KEY (user_id) REFERENCES USER (id),
@@ -185,7 +199,7 @@ CREATE TABLE PROBLEM (
     test_cases text DEFAULT NULL,
     tags text DEFAULT NULL,
     difficulty_id int(11) unsigned DEFAULT NULL,
-    is_active tinyint(1) NOT NULL DEFAULT '1',
+    is_active tinyint(1) NOT NULL DEFAULT 1,
     created_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     url text DEFAULT NULL,
     time_limit text DEFAULT NULL,
@@ -199,6 +213,7 @@ CREATE TABLE PROBLEM (
     CONSTRAINT fk_prob_didi_1 FOREIGN KEY (difficulty_id) REFERENCES DICT_DIFFICULTY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+
 -- table that keeps track of all of the programming topics in the system 
 DROP TABLE IF EXISTS PROGRAMMING_TOPIC;
 
@@ -208,7 +223,7 @@ CREATE TABLE PROGRAMMING_TOPIC (
     description text DEFAULT NULL,
     topic_information text DEFAULT NULL,
     created_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    is_active tinyint(1) NOT NULL DEFAULT '1',
+    is_active tinyint(1) NOT NULL DEFAULT 1,
     created_by int(11) unsigned,
     PRIMARY KEY(id),
     CONSTRAINT fk_prto_admi_1 FOREIGN KEY (created_by) REFERENCES ADMINISTRATOR (id)
@@ -224,7 +239,7 @@ CREATE TABLE SOFT_SKILL_TOPIC (
     description text DEFAULT NULL,
     topic_information text DEFAULT NULL,
     created_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    is_active tinyint(1) NOT NULL DEFAULT '1',
+    is_active tinyint(1) NOT NULL DEFAULT 1,
     created_by int(11) unsigned,
     PRIMARY KEY(id),
     CONSTRAINT fk_ssto_admi_1 FOREIGN KEY (created_by) REFERENCES ADMINISTRATOR (id)
@@ -239,7 +254,7 @@ CREATE TABLE SOFT_SKILL_QUESTION(
     title varchar(100) DEFAULT NULL,
     question text DEFAULT NULL,
     created_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    is_active tinyint(1) NOT NULL DEFAULT '1',
+    is_active tinyint(1) NOT NULL DEFAULT 1,
     created_by int(11) unsigned,
     PRIMARY KEY(id),
     CONSTRAINT fk_ssqu_admi_1 FOREIGN KEY (created_by) REFERENCES ADMINISTRATOR (id)
@@ -255,7 +270,7 @@ CREATE TABLE QUESTIONNAIRE (
     description text DEFAULT NULL,
     total_questions int(11) DEFAULT NULL,
     created_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    is_active tinyint(1) NOT NULL DEFAULT '1',
+    is_active tinyint(1) NOT NULL DEFAULT 1,
     created_by int(11) unsigned,
     PRIMARY KEY (id),
     CONSTRAINT fk_ques_admi_1 FOREIGN KEY (created_by) REFERENCES ADMINISTRATOR (id)
@@ -273,7 +288,7 @@ CREATE TABLE QUESTIONNAIRE_QUESTION(
     option_2 text DEFAULT NULL,
     option_3 text DEFAULT NULL,
     created_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    is_active tinyint(1) NOT NULL DEFAULT '1',
+    is_active tinyint(1) NOT NULL DEFAULT 1,
     PRIMARY KEY (id),
     CONSTRAINT fk_ququ_ques_1 FOREIGN KEY (questionnaire_id) REFERENCES QUESTIONNAIRE (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -286,10 +301,10 @@ CREATE TABLE USER_SOFT_SKILL_QUESTION (
     id int(11) unsigned NOT NULL AUTO_INCREMENT,
     question_id int(11) unsigned DEFAULT NULL,
     user_id int(11) unsigned DEFAULT NULL,
-    status_id int(11) unsigned DEFAULT '1',
+    status_id int(11) unsigned DEFAULT 1,
     answer text DEFAULT NULL,
     created_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    is_active tinyint(1) NOT NULL DEFAULT '1',
+    is_active tinyint(1) NOT NULL DEFAULT 1,
     finished_date timestamp DEFAULT NULL,
     PRIMARY KEY(id),
     CONSTRAINT fk_ubqu_bequ_1 FOREIGN KEY (question_id) REFERENCES SOFT_SKILL_QUESTION (id),
@@ -305,11 +320,11 @@ CREATE TABLE USER_PROBLEM (
     id int(11) unsigned NOT NULL AUTO_INCREMENT,
     user_id int(11) unsigned DEFAULT NULL,
     problem_id int(11) unsigned DEFAULT NULL,
-    status_id int(11) unsigned DEFAULT '1',
+    status_id int(11) unsigned DEFAULT 1,
     code text DEFAULT NULL,
     submission_url text DEFAULT NULL,
     language_id int(11) unsigned DEFAULT NULL,
-    is_active tinyint(1) NOT NULL DEFAULT '1',
+    is_active tinyint(1) NOT NULL DEFAULT 1,
     created_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     finished_date timestamp DEFAULT NULL,
     PRIMARY KEY(id),
@@ -327,8 +342,8 @@ CREATE TABLE USER_PROGRAMMING_TOPIC (
     id int(11) unsigned NOT NULL AUTO_INCREMENT,
     user_id int(11) unsigned DEFAULT NULL,
     programming_topic_id int(11) unsigned DEFAULT NULL,
-    status_id int(11) unsigned DEFAULT '1',
-    is_active tinyint(1) NOT NULL DEFAULT '1',
+    status_id int(11) unsigned DEFAULT 1,
+    is_active tinyint(1) NOT NULL DEFAULT 1,
     created_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     finished_date timestamp DEFAULT NULL,
     PRIMARY KEY(id),
@@ -345,8 +360,8 @@ CREATE TABLE USER_SOFT_SKILL_TOPIC (
     id int(11) unsigned NOT NULL AUTO_INCREMENT,
     user_id int(11) unsigned DEFAULT NULL,
     soft_skill_topic_id int(11) unsigned DEFAULT NULL,
-    status_id int(11) unsigned DEFAULT '1',
-    is_active tinyint(1) NOT NULL DEFAULT '1',
+    status_id int(11) unsigned DEFAULT 1,
+    is_active tinyint(1) NOT NULL DEFAULT 1,
     created_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     finished_date timestamp DEFAULT NULL,
     PRIMARY KEY(id),
@@ -366,8 +381,8 @@ CREATE TABLE USER_QUESTIONNAIRE (
     correct_answers int(11) unsigned DEFAULT NULL,
     percentage_score decimal(5, 2) DEFAULT NULL,
     answers text DEFAULT NULL,
-    is_active tinyint(1) NOT NULL DEFAULT '1',
-    status_id int(11) unsigned DEFAULT '1',
+    is_active tinyint(1) NOT NULL DEFAULT 1,
+    status_id int(11) unsigned DEFAULT 1,
     created_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     finished_date timestamp DEFAULT NULL,
     PRIMARY KEY(id),
@@ -387,7 +402,7 @@ CREATE TABLE COMPANY_TRACKING (
     status_id int(11) unsigned NOT NULL,
     application_url varchar(255) DEFAULT NULL,
     interview_date timestamp DEFAULT NULL,
-    is_active tinyint(1) NOT NULL DEFAULT '1',
+    is_active tinyint(1) NOT NULL DEFAULT 1,
     created_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
     PRIMARY KEY(id),
     CONSTRAINT fk_cotr_user_1 FOREIGN KEY (user_id) REFERENCES USER (id),
@@ -404,7 +419,7 @@ CREATE TABLE COMPANY_TRACKING_LINKS (
     company_tracking_id int(11) unsigned NOT NULL,
     description text NOT NULL,
     url text NOT NULL,
-    is_active tinyint(1) NOT NULL DEFAULT '1',
+    is_active tinyint(1) NOT NULL DEFAULT 1,
     PRIMARY KEY(id),
     CONSTRAINT fk_cotl_cotr_1 FOREIGN KEY (company_tracking_id) REFERENCES COMPANY_TRACKING (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -418,7 +433,7 @@ CREATE TABLE TEMPLATE (
     name varchar(100) DEFAULT NULL,
     description text DEFAULT NULL,
     position int(11) unsigned DEFAULT NULL,
-    is_active tinyint(1) NOT NULL DEFAULT '1',
+    is_active tinyint(1) NOT NULL DEFAULT 1,
     PRIMARY KEY (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
@@ -432,7 +447,7 @@ CREATE TABLE TEMPLATE_SECTION (
     description text DEFAULT NULL,
     position int(11) unsigned DEFAULT NULL,
     template_id int(11) unsigned DEFAULT NULL,
-    is_active tinyint(1) NOT NULL DEFAULT '1',
+    is_active tinyint(1) NOT NULL DEFAULT 1,
     PRIMARY KEY (id),
     CONSTRAINT fk_tese_temp_1 FOREIGN KEY (template_id) REFERENCES TEMPLATE (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -449,7 +464,7 @@ CREATE TABLE TEMPLATE_ACTIVITY (
     activity_type_id int(11) unsigned DEFAULT NULL,
     position int(11) unsigned DEFAULT NULL,
     external_reference int(11) unsigned DEFAULT NULL COMMENT "CAN MAP TO PROBLEM, TOPIC, ETC.",
-    is_active tinyint(1) NOT NULL DEFAULT '1',
+    is_active tinyint(1) NOT NULL DEFAULT 1,
     PRIMARY KEY (id),
     CONSTRAINT fk_teac_tese_1 FOREIGN KEY (template_section_id) REFERENCES TEMPLATE_SECTION (id),
     CONSTRAINT fk_teac_daty_1 FOREIGN KEY (activity_type_id) REFERENCES DICT_ACTIVITY_TYPE (id)
@@ -463,10 +478,10 @@ CREATE TABLE USER_TEMPLATE (
     id int(11) unsigned NOT NULL AUTO_INCREMENT,
     user_id int(11) unsigned DEFAULT NULL,
     template_id int(11) unsigned DEFAULT NULL,
-    status_id int(11) unsigned DEFAULT '1',
+    status_id int(11) unsigned DEFAULT 1,
     position int(11) unsigned DEFAULT NULL,
     created_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    is_active tinyint(1) NOT NULL DEFAULT '1',
+    is_active tinyint(1) NOT NULL DEFAULT 1,
     PRIMARY KEY (id),
     CONSTRAINT fk_uste_user_1 FOREIGN KEY (user_id) REFERENCES USER (id),
     CONSTRAINT fk_uste_temp_1 FOREIGN KEY (template_id) REFERENCES TEMPLATE (id),
@@ -482,16 +497,17 @@ CREATE TABLE USER_TEMPLATE_SECTION (
     user_id int(11) unsigned DEFAULT NULL,
     template_section_id int(11) unsigned DEFAULT NULL,
     user_template_id int(11) unsigned DEFAULT NULL,
-    status_id int(11) unsigned DEFAULT '1',
+    status_id int(11) unsigned DEFAULT 1,
     position int(11) unsigned DEFAULT NULL,
     created_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    is_active tinyint(1) NOT NULL DEFAULT '1',
+    is_active tinyint(1) NOT NULL DEFAULT 1,
     PRIMARY KEY (id),
     CONSTRAINT fk_usts_user_1 FOREIGN KEY (user_id) REFERENCES USER (id),
     CONSTRAINT fk_usts_tese_1 FOREIGN KEY (template_section_id) REFERENCES TEMPLATE_SECTION (id),
     CONSTRAINT fk_usts_uste_1 FOREIGN KEY (user_template_id) REFERENCES USER_TEMPLATE (id),
     CONSTRAINT fk_usts_dast_1 FOREIGN KEY (status_id) REFERENCES DICT_ACTIVITY_STATUS (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
 
 -- table that keeps track of user template activities
 DROP TABLE IF EXISTS USER_TEMPLATE_ACTIVITY;
@@ -501,11 +517,11 @@ CREATE TABLE USER_TEMPLATE_ACTIVITY (
     user_id int(11) unsigned DEFAULT NULL,
     template_activity_id int(11) unsigned DEFAULT NULL,
     user_template_section_id int(11) unsigned DEFAULT NULL,
-    status_id int(11) unsigned DEFAULT '1',
+    status_id int(11) unsigned DEFAULT 1,
     external_reference int(11) unsigned DEFAULT NULL COMMENT "CAN MAP TO USER_PROBLEM, USER_TOPIC, INTERVIEW, ETC.",
     position int(11) unsigned DEFAULT NULL,
     created_date timestamp NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    is_active tinyint(1) NOT NULL DEFAULT '1',
+    is_active tinyint(1) NOT NULL DEFAULT 1,
     finished_date timestamp DEFAULT NULL,
     PRIMARY KEY (id),
     CONSTRAINT fk_usta_user_1 FOREIGN KEY (user_id) REFERENCES USER (id),
@@ -513,6 +529,12 @@ CREATE TABLE USER_TEMPLATE_ACTIVITY (
     CONSTRAINT fk_usta_usts_1 FOREIGN KEY (user_template_section_id) REFERENCES USER_TEMPLATE_SECTION (id),
     CONSTRAINT fk_usta_dast_1 FOREIGN KEY (status_id) REFERENCES DICT_ACTIVITY_STATUS (id)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+INSERT INTO DICT_USER_STATUS (id, name, description)
+VALUES 
+(0, "Inactive", "User not active"),
+(1, "Active", "Active and verified user"),
+(2, "Pending verification", "Active unverified user");
 
 INSERT INTO DICT_ACTIVITY_STATUS (id, name, description)
 VALUES 
@@ -567,7 +589,6 @@ VALUES
 (3, "Java"),
 (4, "Python"),
 (5, "Javascript");
-
 
 INSERT INTO DICT_SCHOOL (name, description)
 VALUES 
@@ -624,7 +645,6 @@ VALUES
 ("CECyT 19", "CECyT 19"),
 ("CET 1", "CET 1");
 
-
 INSERT INTO DICT_TRACKING_STATUS (id, name, description)
 VALUES 
 (1, "Not applied", "Have not applied to company"),
@@ -634,14 +654,12 @@ VALUES
 (5, "Accepted", "Recevied offer"),
 (6, "Rejected", "Not accepted");
 
-/*
-INSERT INTO ADMINISTRATOR (email, password, dob, first_name, last_name, is_super)
+INSERT INTO ADMINISTRATOR (email, hash, salt, dob, first_name, last_name, is_super)
 VALUES 
-("rammendozaa@yahoo.com", "password", "1998-07-02", "Alvaro", "Mendoza Ramirez", 1),
-("hugomichelbl@gmail.com", "password", "1998-07-02", "Hugo Michel", "Barbosa Lopez", 1),
-("no-super-alvaro@yahoo.com", "password", "1998-07-02", "Alvaro", "Mendoza Ramirez", 0),
-("no-super-hugo@gmail.com", "password", "1998-07-02", "Hugo Michel", "Barbosa Lopez", 0);
-*/
+("rammendozaa@yahoo.com", 0xA6F6D68BD31F25713867D7C6040C5A09FCBD38B3AA813F613631EDFE0BE12F75, 0xC584131F9F1CAA6750BC216C39065B72, "1998-07-02", "Alvaro", "Mendoza Ramirez", 1),
+("hugomichelbl@gmail.com", 0xA6F6D68BD31F25713867D7C6040C5A09FCBD38B3AA813F613631EDFE0BE12F75, 0xC584131F9F1CAA6750BC216C39065B72, "1998-07-02", "Hugo Michel", "Barbosa Lopez", 1),
+("no-super-alvaro@yahoo.com", 0xA6F6D68BD31F25713867D7C6040C5A09FCBD38B3AA813F613631EDFE0BE12F75, 0xC584131F9F1CAA6750BC216C39065B72, "1998-07-02", "Alvaro", "Mendoza Ramirez", 0),
+("no-super-hugo@gmail.com", 0xA6F6D68BD31F25713867D7C6040C5A09FCBD38B3AA813F613631EDFE0BE12F75, 0xC584131F9F1CAA6750BC216C39065B72, "1998-07-02", "Hugo Michel", "Barbosa Lopez", 0);
 
 INSERT INTO TEMPLATE (id, name, description, position)
 VALUES 
